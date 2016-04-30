@@ -74,5 +74,5 @@ if (!function_exists('_SHIM_MATCH_CLASSFILE_ASIS_LOADER'))
 //require_once APP_VENDOR_DIR.DIRECTORY_SEPARATOR.'autoload.php';
 
 //"Packages"
-require_once APP_LIB_DIR.DIRECTORY_SEPARATOR.'silex.phar';
+require_once 'phar://'.APP_LIB_DIR.DIRECTORY_SEPARATOR.'silex-1.3.5.phar/vendor/autoload.php';
 require_once APP_LIB_DIR.DIRECTORY_SEPARATOR.'rb-4.3.1.php';
