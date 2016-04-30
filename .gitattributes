@@ -4,11 +4,30 @@
 /ReadMe.txt -text
 /box.json -text svneol=unset#application/octet-stream
 /build.xml -text
+/codeception.yml -text
 libs/rb-4.3.1.php -text
 libs/rb-license.txt -text
 libs/silex.phar -text svneol=unset#unset
 /sonar-project.properties -text
 src/Common.php -text
+tests/_bootstrap.php -text
+tests/_data/dump.sql -text
+tests/_support/AcceptanceTester.php -text
+tests/_support/FunctionalTester.php -text
+tests/_support/Helper/Acceptance.php -text
+tests/_support/Helper/Functional.php -text
+tests/_support/Helper/Unit.php -text
+tests/_support/UnitTester.php -text
+tests/_support/_generated/AcceptanceTesterActions.php -text
+tests/_support/_generated/FunctionalTesterActions.php -text
+tests/_support/_generated/UnitTesterActions.php -text
+tests/acceptance.suite.yml -text
+tests/acceptance/_bootstrap.php -text
+tests/functional.suite.yml -text
+tests/functional/MyTest.php -text
+tests/functional/_bootstrap.php -text
+tests/unit.suite.yml -text
+tests/unit/_bootstrap.php -text
 ts-src/app.ts -text svneol=unset#application/octet-stream
 ts-src/tsconfig.json -text
 ts-src/types/Foundation-Sites/foundation-sites.d.ts -text
