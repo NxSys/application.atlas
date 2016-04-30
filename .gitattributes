@@ -1,1 +1,10 @@
 * text=auto !eol
+/AGPL.txt -text
+/LICENSE.txt -text
+/ReadMe.txt -text
+/box.json -text svneol=unset#application/octet-stream
+/build.xml -text
+/sonar-project.properties -text
+ts-src/tsconfig.json -text
+webroot/humans.txt -text svneol=unset#application/octet-stream
+webroot/robots.txt -text svneol=unset#application/octet-stream
