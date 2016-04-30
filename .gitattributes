@@ -4,6 +4,8 @@
 /ReadMe.txt -text
 /box.json -text svneol=unset#application/octet-stream
 /build.xml -text
+libs/rb-4.3.1.php -text
+libs/rb-license.txt -text
 libs/silex.phar -text svneol=unset#unset
 /sonar-project.properties -text
 src/Common.php -text
@@ -19,4 +21,6 @@ webroot/index.html -text
 webroot/index.php -text
 webroot/js/app.js -text
 webroot/js/jquery-2.2.3.min.js -text
+webroot/js/vendor/foundation.min.js -text
+webroot/js/vendor/what-input.js -text
 webroot/robots.txt -text svneol=unset#application/octet-stream

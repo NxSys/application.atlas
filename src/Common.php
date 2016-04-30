@@ -21,11 +21,12 @@ define('APP_SOURCE_DIR',   APP_BASE_DIR.DIRECTORY_SEPARATOR.'src');
 define('APP_RESOURCE_DIR', APP_BASE_DIR.DIRECTORY_SEPARATOR.'res');
 
 //3rd Party Classes, Frameworks, and Libraries
+// and other namespaced code
 define('APP_VENDOR_DIR',   APP_BASE_DIR.DIRECTORY_SEPARATOR.'vendor');
 
 
 //**(Phar)Unpacked\Redist Dirs
-//Shared\Ext Libs e.g. other Phars, PhpExts
+//Shared\Ext Libs e.g. other Phars, PhpExts, and other "packages"
 define('APP_LIB_DIR', getcwd().DIRECTORY_SEPARATOR.'libs');
 
 //"InSitu" Documentation
@@ -39,9 +40,6 @@ set_include_path( APP_SOURCE_DIR.PATH_SEPARATOR
 				 .APP_VENDOR_DIR.PATH_SEPARATOR
 				 .get_include_path());
 spl_autoload_register();
-
-//classmaps and include/require bloc's should be here
-//require_once APP_VENDOR_DIR.DIRECTORY_SEPARATOR.'autoload.php';
 
 //Use non-ignorant autoloader
 // because phars are a case affected by phpbug #49625
@@ -72,5 +70,9 @@ if (!function_exists('_SHIM_MATCH_CLASSFILE_ASIS_LOADER'))
 	spl_autoload_register('_SHIM_MATCH_CLASSFILE_ASIS_LOADER');
 }
 
-//Silex phar file
+//classmaps and include/require bloc's should be here
+//require_once APP_VENDOR_DIR.DIRECTORY_SEPARATOR.'autoload.php';
+
+//"Packages"
 require_once APP_LIB_DIR.DIRECTORY_SEPARATOR.'silex.phar';
+require_once APP_LIB_DIR.DIRECTORY_SEPARATOR.'rb-4.3.1.php';
