@@ -1,0 +1,46 @@
+/**
+* Typescript Config File
+* $Id$
+*
+* Configuration file for typescript from WACC
+*
+* @link http://nxsys.org/spaces/wacc
+* @package WACC\UI
+* @author Chris R. Feamster <cfeamster@nexussystemsinc.com>
+* @author $LastChangedBy$
+*
+* @version $Revision$
+*
+* @copyright Copyright 2016 Nexus Systems Inc.
+* @license http://nxsys.org/spaces/wacc/wiki/license.html
+* Please see the license.txt file or the url above for full copyright and
+* license terms.
+*/
+{
+	"files":
+	[
+		"app.ts"
+	],
+	"compilerOptions":
+	{
+		//Please change this section as your project requires
+		"rootDir": ".",
+		"outDir": "../webroot/js",
+
+		//Please refrain from changing below without due consideration
+		"declaration": true,
+		"sourceMap": true,
+		"module": "system",
+		"target": "es5",
+		"noFallthroughCasesInSwitch": true,
+
+		// The following are considered team/org policy, please do not disable
+		"forceConsistentCasingInFileNames": true,
+		"listFiles": true,
+		"newLine": "CRLF",
+		"noEmitOnError": true,
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"removeComments": true
+	}
+}

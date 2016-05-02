@@ -38,7 +38,6 @@ webroot/css/foundation.min.css -text
 webroot/humans.txt -text svneol=unset#application/octet-stream
 webroot/index.html -text
 webroot/index.php -text
-webroot/js/app.js -text
 webroot/js/jquery-2.2.3.min.js -text
 webroot/js/vendor/foundation.min.js -text
 webroot/js/vendor/what-input.js -text
