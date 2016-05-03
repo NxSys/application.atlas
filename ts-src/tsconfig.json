@@ -2,17 +2,17 @@
 * Typescript Config File
 * $Id$
 *
-* Configuration file for typescript from WACC
+* Configuration file for typescript from Atlas
 *
-* @link http://nxsys.org/spaces/wacc
-* @package WACC\UI
+* @link http://nxsys.org/spaces/atlas-code-explorer
+* @package ACE\UI
 * @author Chris R. Feamster <cfeamster@nexussystemsinc.com>
 * @author $LastChangedBy$
 *
 * @version $Revision$
 *
 * @copyright Copyright 2016 Nexus Systems Inc.
-* @license http://nxsys.org/spaces/wacc/wiki/license.html
+* @license http://nxsys.org/spaces/atlas-code-explorer/wiki/license.html
 * Please see the license.txt file or the url above for full copyright and
 * license terms.
 */

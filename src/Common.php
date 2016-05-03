@@ -25,15 +25,17 @@ define('APP_RESOURCE_DIR', APP_BASE_DIR.DIRECTORY_SEPARATOR.'res');
 define('APP_VENDOR_DIR',   APP_BASE_DIR.DIRECTORY_SEPARATOR.'vendor');
 
 
-//**(Phar)Unpacked\Redist Dirs
+//**(Phar)Unpacked\Redist Dirs;
+//consider changing APP_BASE_DIR to getcwd() if the dir structure is updated\compiled
+
 //Shared\Ext Libs e.g. other Phars, PhpExts, and other "packages"
-define('APP_LIB_DIR', getcwd().DIRECTORY_SEPARATOR.'libs');
+define('APP_LIB_DIR', APP_BASE_DIR.DIRECTORY_SEPARATOR.'libs');
 
 //"InSitu" Documentation
 //define('APP_DOC_DIR', getcwd().DIRECTORY_SEPARATOR.'docs');
 
 //Misc assorted files e.g. config files and etc
-define('APP_ETC_DIR', getcwd().DIRECTORY_SEPARATOR.'etc');
+define('APP_ETC_DIR', APP_BASE_DIR.DIRECTORY_SEPARATOR.'etc');
 
 //now you can use a bare autoloader, unless we're in a PHAR, then we need a shim...
 set_include_path( APP_SOURCE_DIR.PATH_SEPARATOR
@@ -48,6 +50,10 @@ if (!function_exists('_SHIM_MATCH_CLASSFILE_ASIS_LOADER'))
 	function _SHIM_MATCH_CLASSFILE_ASIS_LOADER($class)
 	{
 		$aPaths=explode(PATH_SEPARATOR, get_include_path());
+		if(false!==strpos($class,'_')) //because twig....
+		{
+			$class=str_replace('_', DIRECTORY_SEPARATOR, $class);
+		}
 		if('\\' !== DIRECTORY_SEPARATOR)
 		{
 			$class=str_replace('\\', DIRECTORY_SEPARATOR, $class);
