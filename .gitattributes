@@ -5,11 +5,15 @@
 /box.json -text svneol=unset#application/octet-stream
 /build.xml -text
 /codeception.yml -text
+etc/atlas.db3 -text
+etc/boot-config.neon -text
 libs/rb-4.3.1.php -text
 libs/rb-license.txt -text
 libs/silex-1.3.5.phar -text svneol=unset#unset
+res/config-defaults.neon -text
 /sonar-project.properties -text
 src/Common.php -text
+src/NxSys/Applications/Atlas/Application.php -text
 tests/_bootstrap.php -text
 tests/_data/dump.sql -text
 tests/_support/AcceptanceTester.php -text
@@ -24,6 +28,7 @@ tests/_support/_generated/UnitTesterActions.php -text
 tests/acceptance.suite.yml -text
 tests/acceptance/_bootstrap.php -text
 tests/functional.suite.yml -text
+tests/functional/BootTestCept.php -text
 tests/functional/MyTest.php -text
 tests/functional/_bootstrap.php -text
 tests/unit.suite.yml -text
@@ -35,10 +40,12 @@ ts-src/types/JQuery/jquery.d.ts -text
 webroot/css/app.css -text
 webroot/css/foundation.css -text
 webroot/css/foundation.min.css -text
-webroot/humans.txt -text svneol=unset#application/octet-stream
+webroot/humans.txt -text
 webroot/index.html -text
 webroot/index.php -text
 webroot/js/jquery-2.2.3.min.js -text
+webroot/js/vendor/foundation.js -text
 webroot/js/vendor/foundation.min.js -text
+webroot/js/vendor/jquery.js -text
 webroot/js/vendor/what-input.js -text
 webroot/robots.txt -text svneol=unset#application/octet-stream

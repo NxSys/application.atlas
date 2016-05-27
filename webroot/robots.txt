@@ -1,1 +1,2 @@
-ÿþ
+User-agent: *
+Disallow:

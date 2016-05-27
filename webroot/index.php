@@ -23,7 +23,7 @@ $PATH_TO_APPROOT='../src';
 define('APPROOT_PATH',realpath($PATH_TO_APPROOT));
 define('WEBROOT_PATH',realpath(dirname(__FILE__)));
 
-chdir(WEBROOT_PATH.DIRECTORY_SEPARATOR.'..');
+//chdir(WEBROOT_PATH.DIRECTORY_SEPARATOR.'..');
 
 if(!APPROOT_PATH || !WEBROOT_PATH)
 {
@@ -34,12 +34,7 @@ if(!APPROOT_PATH || !WEBROOT_PATH)
 require_once __DIR__.'/../src/Common.php';
 //\Bootloader::getDependency('wacc.webprocessor')->run();
 
-$app = new Silex\Application();
-
-$app->get('/hello', function () {
-    return 'Hello!';
-});
-
+$app=new NxSys\Applications\Atlas\Application(new Silex\Application);
+$app->init();
 $app->run();
-
 //all done
