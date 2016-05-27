@@ -51,3 +51,4 @@ webroot/js/vendor/foundation.min.js -text
 webroot/js/vendor/jquery.js -text
 webroot/js/vendor/what-input.js -text
 webroot/robots.txt -text svneol=unset#application/octet-stream
+webroot/web.config -text
