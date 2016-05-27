@@ -14,6 +14,7 @@ res/config-defaults.neon -text
 /sonar-project.properties -text
 src/Common.php -text
 src/NxSys/Applications/Atlas/Application.php -text
+src/NxSys/Applications/Atlas/Web/Controllers/Home.php -text
 tests/_bootstrap.php -text
 tests/_data/dump.sql -text
 tests/_support/AcceptanceTester.php -text
@@ -35,8 +36,8 @@ tests/unit.suite.yml -text
 tests/unit/_bootstrap.php -text
 ts-src/app.ts -text svneol=unset#application/octet-stream
 ts-src/tsconfig.json -text
-ts-src/types/Foundation-Sites/foundation-sites.d.ts -text
-ts-src/types/JQuery/jquery.d.ts -text
+ts-src/types/foundation-sites/foundation-sites.d.ts -text
+ts-src/types/jquery/jquery.d.ts -text
 webroot/css/app.css -text
 webroot/css/foundation.css -text
 webroot/css/foundation.min.css -text
