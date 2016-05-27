@@ -49,10 +49,10 @@ class Application
     {        
 		$this->oWebApp->mount('noroute', new \Silex\ControllerCollection(new \Silex\Route));
 		$this->oWebApp->match('ping', function(){ return APP_IDENT.'-'.APP_VERSION;});
-		$this->oWebApp->match('/', [new Web\Controllers\Home, 'index']);
-		//$this->oWebApp->match('/setup', [new Web\Controlers\Home, 'index']);
+		$this->oWebApp->match('/', 		'NxSys\Applications\Atlas\Web\Controllers\Home::index');
+		$this->oWebApp->match('/setup', 'NxSys\Applications\Atlas\Web\Controllers\Home::index');
 		//$this->oWebApp->match('/list', [new Web\Controlers\Home, 'index']);
-		//$this->oWebApp->match('/examine', [new Web\Controlers\Home, 'index']);
+		$this->oWebApp->match('/examine', 'NxSys\Applications\Atlas\Web\Controllers\Examine::index');
 		//$this->oWebApp->match('/search', [new Web\Controlers\Home, 'index']);
 		//$this->oWebApp->match('/list', [new Web\Controlers\Home, 'index']);
     }

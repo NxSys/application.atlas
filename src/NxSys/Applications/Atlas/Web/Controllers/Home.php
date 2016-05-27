@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation as SfHttp;
 
 class Home
 {
+    
     #code
     public function index()
     {

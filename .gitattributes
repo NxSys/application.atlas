@@ -14,6 +14,7 @@ res/config-defaults.neon -text
 /sonar-project.properties -text
 src/Common.php -text
 src/NxSys/Applications/Atlas/Application.php -text
+src/NxSys/Applications/Atlas/Web/Controllers/Examine.php -text
 src/NxSys/Applications/Atlas/Web/Controllers/Home.php -text
 tests/_bootstrap.php -text
 tests/_data/dump.sql -text
