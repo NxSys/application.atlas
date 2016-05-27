@@ -1,0 +1,6 @@
+svn:
+    Atlas:
+        url: https://subversion.assembla.com/svn/atlas-code-explorer
+        config: c:\svnconfig
+        user: 
+        pass: 

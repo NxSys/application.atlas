@@ -24,7 +24,7 @@ use Silex\Application as WebApp;
 use Symfony\Component\HttpFoundation as SfHttp;
 use Nette\Neon as NeonConfig;
 use F2Dev\Utils as F2Utils;
-
+use Igorw\Silex\ConfigServiceProvider;
 class Application
 {
 	/* @var Silex\Application */
@@ -40,6 +40,8 @@ class Application
 		$this->oWebApp=$oWebApp;
 		//if debug
 		$this->oWebApp['debug']=1;
+		$this->oWebApp->register(new ConfigServiceProvider(__DIR__."/../../../../etc/svn.yml"));
+		
 
 		//$this->oWebApp['monolog']->debug('Testing the Monolog logging.');
 		//self::$aRegistry['svc']['log']=$this->oWebApp['monolog'];
