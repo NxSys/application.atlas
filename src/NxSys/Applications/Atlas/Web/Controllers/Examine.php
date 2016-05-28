@@ -19,7 +19,7 @@ class Examine
 		foreach ($aRepos as $aRepo)
 		{
 			$sConfigDir = $aRepo['config'];
-			$oSVN = new Vcs\Svn($aRepo['url'], new CliAdapter('svn --config-dir=$sConfigDir', new Cli(), new CliParser()));
+			$oSVN = new Vcs\Svn($aRepo['url'], new CliAdapter("svn --config-dir=$sConfigDir", new Cli(), new CliParser()));
 			$dirs = [['.']];
 			while (count($dirs) > 0)
 			{

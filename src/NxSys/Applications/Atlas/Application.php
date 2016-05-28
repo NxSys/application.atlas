@@ -40,7 +40,9 @@ class Application
 		$this->oWebApp=$oWebApp;
 		//if debug
 		$this->oWebApp['debug']=1;
-		$this->oWebApp->register(new ConfigServiceProvider(__DIR__."/../../../../etc/svn.yml"));
+		$this->oWebApp->register(new ConfigServiceProvider(APP_ETC_DIR
+														   .DIRECTORY_SEPARATOR
+														   .'svn.yml'));
 		
 
 		//$this->oWebApp['monolog']->debug('Testing the Monolog logging.');
