@@ -1,0 +1,3 @@
+include:
+    - svn.yml
+    - search.yml

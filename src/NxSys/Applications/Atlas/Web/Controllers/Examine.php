@@ -14,7 +14,9 @@ class Examine
 {
 	public function index(WebApp $oApp, SfHttp\Request $oRequest)
 	{
-		$aRepos = $oApp['svn'];
+		$oSearchService = $oApp['atlas.search'];
+		var_dump($oSearchService->checkStatus());
+		$aRepos = $oApp['config']['svn'];
 		$html = "<html><body><ul>";
 		foreach ($aRepos as $aRepo)
 		{
@@ -32,7 +34,6 @@ class Examine
 						$newDir = $dir;
 						$newDir[] = $node->getFilename();
 						$dirs[] = $newDir;
-						
 					}
 					else
 					{

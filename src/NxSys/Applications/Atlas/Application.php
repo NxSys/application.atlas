@@ -20,11 +20,17 @@
 /** Local Namespace **/
 namespace NxSys\Applications\Atlas;
 
+
+//Vendor Namespaces
 use Silex\Application as WebApp;
 use Symfony\Component\HttpFoundation as SfHttp;
-use Nette\Neon as NeonConfig;
-use F2Dev\Utils as F2Utils;
 use Igorw\Silex\ConfigServiceProvider;
+
+//Service Namespaces
+use NxSys\Applications\Atlas\Services\Search as SearchService;
+use Elastica\Client as SearchClient;
+
+
 class Application
 {
 	/* @var Silex\Application */
@@ -35,36 +41,42 @@ class Application
 
 	public function __construct(WebApp $oWebApp)
 	{
-
 		//$this->oConfig=$oConfig;
-		$this->oWebApp=$oWebApp;
+		$this->app=$oWebApp;
 		//if debug
-		$this->oWebApp['debug']=1;
-		$this->oWebApp->register(new ConfigServiceProvider(APP_ETC_DIR
-														   .DIRECTORY_SEPARATOR
-														   .'svn.yml'));
-		
+		$this->app['debug']=1;
 
 		//$this->oWebApp['monolog']->debug('Testing the Monolog logging.');
 		//self::$aRegistry['svc']['log']=$this->oWebApp['monolog'];
 	}
     
     public function routes()
-    {        
-		$this->oWebApp->mount('noroute', new \Silex\ControllerCollection(new \Silex\Route));
-		$this->oWebApp->match('ping', function(){ return APP_IDENT.'-'.APP_VERSION;});
-		$this->oWebApp->match('/', 		'NxSys\Applications\Atlas\Web\Controllers\Home::index');
-		$this->oWebApp->match('/setup', 'NxSys\Applications\Atlas\Web\Controllers\Home::index');
-		//$this->oWebApp->match('/list', [new Web\Controlers\Home, 'index']);
-		$this->oWebApp->match('/examine', 'NxSys\Applications\Atlas\Web\Controllers\Examine::index');
-		//$this->oWebApp->match('/search', [new Web\Controlers\Home, 'index']);
-		//$this->oWebApp->match('/list', [new Web\Controlers\Home, 'index']);
+    {
+		$this->app->mount('noroute', new \Silex\ControllerCollection(new \Silex\Route));
+		$this->app->match('ping', function(){ return APP_IDENT.'-'.APP_VERSION;});
+		$this->app->match('/', 		'NxSys\Applications\Atlas\Web\Controllers\Home::index');
+		$this->app->match('/setup', 'NxSys\Applications\Atlas\Web\Controllers\Home::index');
+		//$this->app->match('/list', [new Web\Controlers\Home, 'index']);
+		$this->app->match('/examine', 'NxSys\Applications\Atlas\Web\Controllers\Examine::index');
+		//$this->app->match('/search', [new Web\Controlers\Home, 'index']);
+		//$this->app->match('/list', [new Web\Controlers\Home, 'index']);
     }
+	
+	public function services()
+	{
+		$this->app['elastica.search'] = function ($app) {
+			return new SearchClient($app['config']['search']);
+		};
+		$this->app['atlas.search'] = function ($app) {
+			return new SearchService($app, $app['elastica.search']);
+		};
+	}
 
 	public function init()
 	{
         //get configuration
-        $config=NeonConfig\Neon::decode(file_get_contents(APP_RESOURCE_DIR.DIRECTORY_SEPARATOR.'config-defaults.neon'));
+		$this->loadConfig();
+		
 		//identify self url
         //self::$aRegistry['conf']['sHomeUrl']=sprintf('%s://%s', $aHomeURL['scheme'], $aHomeURL['host']);
 		
@@ -73,7 +85,19 @@ class Application
 			//setup event listeners
 		#we're using JiT routing, maybe?
 		$this->routes();
-		$this->oWebApp->boot();
+		$this->services();
+		$this->app->boot();
+	}
+	
+	public function loadConfig()
+	{
+		$this->app->register(new ConfigServiceProvider(APP_CONFIG_DIR.DIRECTORY_SEPARATOR.'config.yml', [], null, 'config'));
+		$aInclude = $this->app['config']['include'];
+		
+		foreach ($aInclude as $sConfigFile)
+		{
+			$this->app->register(new ConfigServiceProvider(APP_CONFIG_DIR.DIRECTORY_SEPARATOR.$sConfigFile, [], null, 'config'));
+		}
 	}
 
 	public static function getResource($sType, $sName)
@@ -95,8 +119,8 @@ class Application
 	public function run()
 	{
 		$oReq=SfHttp\Request::createFromGlobals();
-		$oResp=$this->oWebApp->handle($oReq);
+		$oResp=$this->app->handle($oReq);
         $oResp->send();
-        $this->oWebApp->terminate($oReq, $oResp);
+        $this->app->terminate($oReq, $oResp);
 	}
 }

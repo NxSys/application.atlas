@@ -36,6 +36,7 @@ define('APP_LIB_DIR', APP_BASE_DIR.DIRECTORY_SEPARATOR.'libs');
 
 //Misc assorted files e.g. config files and etc
 define('APP_ETC_DIR', APP_BASE_DIR.DIRECTORY_SEPARATOR.'etc');
+define('APP_CONFIG_DIR', APP_ETC_DIR.DIRECTORY_SEPARATOR.'config');
 
 //now you can use a bare autoloader, unless we're in a PHAR, then we need a shim...
 set_include_path( APP_SOURCE_DIR.PATH_SEPARATOR
