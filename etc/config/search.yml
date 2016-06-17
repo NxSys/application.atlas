@@ -2,3 +2,4 @@ search:
     host: 10.100.0.2
     port: 9200
     timeout: 60
+    index: Atlas
