@@ -77,8 +77,9 @@ class Application
 		
 		$this->app->register(new \Silex\Provider\TwigServiceProvider(),
 							 ['twig.path' => APP_RESOURCE_DIR.DIRECTORY_SEPARATOR.'templates',
-							  'cache' => APP_ETC_DIR.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'tmpl',
-							  'debug' => true]);
+							  'twig.options' => ['cache' => APP_ETC_DIR.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'tmpl',
+												 'debug' => true]
+							 ]);
 	}
 
 	public function init()
