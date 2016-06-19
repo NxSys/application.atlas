@@ -46,33 +46,29 @@ class Search
 		
 		$oProjectType = $this->index->getType('project');
 		$oProjectType->setMapping( new SearchMapping($oProjectType,
-											 ['name' => 'string',
-											  'description' => 'string']));
+											 ['name' => ['type' => 'string'],
+											  'description' => ['type' => 'string']]));
 		
 		$oRepositoryType = $this->index->getType('repository');
-		$oRepositoryType->setMapping( new SearchMapping($oRepositoryType,
-														['location' => 'string',
-														 '_parent' => $oProjectType]));
+		$oRepositoryType->setMapping( (new SearchMapping($oRepositoryType,
+														['location' => ['type' => 'string']]))->setParent('project'));
 		
 		$oCommitType = $this->index->getType('commit');
-		$oCommitType->setMapping( new SearchMapping($oCommitType,
-											['revision' => 'string',
-											 'date' => 'date',
-											 'message' => 'message',
-											 '_parent' => $oRepositoryType]));
+		$oCommitType->setMapping( (new SearchMapping($oCommitType,
+											['revision' => ['type' => 'string'],
+											 'date' => ['type' => 'date'],
+											 'message' => ['type' => 'string']]))->setParent('repository'));
 		
 		$oFileType = $this->index->getType('file');
-		$oFileType->setMapping( new SearchMapping($oFileType,
-										  ['path' => 'string',
-										   'contents' => 'string',
-										   '_parent' => $oCommitType]));
+		$oFileType->setMapping( (new SearchMapping($oFileType,
+										  ['path' => ['type' => 'string'],
+										   'contents' => ['type' => 'string']]))->setParent('commit'));
 		
 		
 		$oDeveloperType = $this->index->getType('developer');
-		$oDeveloperType->setMapping( new SearchMapping($oDeveloperType,
-											   ['name' => 'string',
-												'user' => 'string',
-												'_parent' => $oCommitType]));
+		$oDeveloperType->setMapping( (new SearchMapping($oDeveloperType,
+											   ['name' => ['type' => 'string'],
+												'user' => ['type' => 'string']]))->setParent('commit'));
 	}
 	
 }
