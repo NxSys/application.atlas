@@ -64,12 +64,21 @@ class Application
 	
 	public function services()
 	{
+		$this->app['name']=APP_NAME;
+		$this->app['ident']=APP_IDENT;
+		$this->app['version']=APP_VERSION;
+		
 		$this->app['elastica.search'] = function ($app) {
 			return new SearchClient($app['config']['search']);
 		};
 		$this->app['atlas.search'] = function ($app) {
 			return new SearchService($app, $app['elastica.search']);
 		};
+		
+		$this->app->register(new \Silex\Provider\TwigServiceProvider(),
+							 ['twig.path' => APP_RESOURCE_DIR.DIRECTORY_SEPARATOR.'templates',
+							  'cache' => APP_ETC_DIR.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'tmpl',
+							  'debug' => true]);
 	}
 
 	public function init()
