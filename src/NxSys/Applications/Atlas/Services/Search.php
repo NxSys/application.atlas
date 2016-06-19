@@ -4,6 +4,7 @@ namespace NxSys\Applications\Atlas\Services;
 
 use Silex\Application as WebApp;
 use Elastica\Client as SearchClient;
+use Elastica\Query\QueryString;
 use Elastica\Type\Mapping as SearchMapping;
 use Elastica\Exception\Connection\HTTPException;
 
@@ -69,6 +70,37 @@ class Search
 		$oDeveloperType->setMapping( (new SearchMapping($oDeveloperType,
 											   ['name' => ['type' => 'string'],
 												'user' => ['type' => 'string']]))->setParent('commit'));
+	}
+	
+	public function indexObject($oObject)
+	{
+		
+	}
+	
+	public function deindexObject($oObject)
+	{
+		
+	}
+	
+	private function getSearchDocument($oObject)
+	{
+		
+	}
+	
+	public function search($sQuery)
+	{
+		$oQuery = new QueryString($sQuery);
+		$oQuery->setPhraseSlop(2); //Specifies number of acceptable word order variations. (https://www.elastic.co/guide/en/elasticsearch/guide/master/slop.html)
+		$oQuery->setFuzzyMinSim(0.5); //Minimal similarity required. (Typos acceptable) (https://www.elastic.co/guide/en/elasticsearch/reference/current/common-options.html#_string_fields)
+		$oQuery->setAnalyzer("english");
+		$oEnglishResults = $this->index->search($oQuery);
+
+		$oQuery = new QueryString($sQuery);
+		$oSimpleResults = $this->index->search($oQuery);
+
+		$aWeightedResults = ["English" => [$oEnglishResults, 1.0], "Simple" => [$oSimpleResults, 0.5]];
+		
+		return $aWeightedResults;
 	}
 	
 }

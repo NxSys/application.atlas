@@ -16,6 +16,14 @@ res/config-defaults.neon -text
 /sonar-project.properties -text
 src/Common.php -text
 src/NxSys/Applications/Atlas/Application.php -text
+src/NxSys/Applications/Atlas/ExceptionType.php -text
+src/NxSys/Applications/Atlas/Models/BaseModel.php -text
+src/NxSys/Applications/Atlas/Models/Commit.php -text
+src/NxSys/Applications/Atlas/Models/DataExceptionType.php -text
+src/NxSys/Applications/Atlas/Models/Developer.php -text
+src/NxSys/Applications/Atlas/Models/File.php -text
+src/NxSys/Applications/Atlas/Models/Project.php -text
+src/NxSys/Applications/Atlas/Models/Repository.php -text
 src/NxSys/Applications/Atlas/Services/Search.php -text
 src/NxSys/Applications/Atlas/Web/Controllers/Examine.php -text
 src/NxSys/Applications/Atlas/Web/Controllers/Home.php -text
