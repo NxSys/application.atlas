@@ -17,18 +17,29 @@
     <body>
 		<div class="row">
 			<div class="large-12 columns">
-				<div id="content">{% block content %}{% endblock %}</div>
+				<div id="content">{% block content_full %}
+					<div id="headbar" class="row">
+						<div id="brand" class="columns small-2"><img clas="ace_logo" src="" height="10" width="10"/><span id="prjname" class="text-center">Atlas: Code Explorer</span></div>
+						<div id="find" class="columns small-8"><input type="text" placeholder="Search this project" class="text-center"/></div>
+						<div id="info" class="columns small-2">Info</div>
+					</div>
+					<div id="main-content" class="row">
+						<div class="columns small-12">{% block content_multiview %}MultiView{% endblock %}</div>
+					</div>
+				{% endblock %}</div>
 			</div>
 		</div>
-        <div id="footer">
-			<small>
-            {% block footer %}
-                <a href="https://app.assembla.com/spaces/atlas-code-explorer/wiki">{{app.name}}</a>
-				is open source. &copy; 2016 and licensed by <a href="http://nxsys.org/spaces/atlas-code-explorer/wiki/License">Nexus Systems, Inc.</a>
-				Explore. Contribute. Share!
-            {% endblock %}</br>
-			({{ app.request.host }})
-			</small>
+		<div id="footer" class="row">
+			<div class="columns small-12"></div>
+				<small>
+				{% block footer %}
+					<a href="https://app.assembla.com/spaces/atlas-code-explorer/wiki">{{app.name}}</a>
+					is open source. &copy; 2016 and licensed by <a href="http://nxsys.org/spaces/atlas-code-explorer/wiki/License">Nexus Systems, Inc.</a>
+					Explore. Contribute. Share!
+				{% endblock %}</br>
+				({{ app.request.host }})
+				</small>
+			</div>
         </div>
     </body>
 </html>
