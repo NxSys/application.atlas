@@ -2,8 +2,6 @@
 
 namespace NxSys\Applications\Atlas\Models;
 
-
-
 class BaseModel
 {
 	/**

@@ -20,7 +20,7 @@ class Developer extends BaseModel
 		$this->Name = $Name;
 	}
 	
-	public function addPath(string $Name)
+	public function addName(string $Name)
 	{
 		$this->Name[] = $Name;
 	}
