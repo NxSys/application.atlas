@@ -27,6 +27,7 @@ src/NxSys/Applications/Atlas/Models/File.php -text
 src/NxSys/Applications/Atlas/Models/Project.php -text
 src/NxSys/Applications/Atlas/Models/Repository.php -text
 src/NxSys/Applications/Atlas/Services/Search.php -text
+src/NxSys/Applications/Atlas/Services/VCS.php -text
 src/NxSys/Applications/Atlas/Web/Controllers/Examine.php -text
 src/NxSys/Applications/Atlas/Web/Controllers/Home.php -text
 tests/_bootstrap.php -text

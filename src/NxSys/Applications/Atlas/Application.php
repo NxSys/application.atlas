@@ -28,6 +28,7 @@ use Igorw\Silex\ConfigServiceProvider;
 
 //Service Namespaces
 use NxSys\Applications\Atlas\Services\Search as SearchService;
+use NxSys\Applications\Atlas\Services\VCS as VCSService;
 use Elastica\Client as SearchClient;
 
 
@@ -73,6 +74,9 @@ class Application
 		};
 		$this->app['atlas.search'] = function ($app) {
 			return new SearchService($app, $app['elastica.search']);
+		};
+		$this->app['atlas.vcs'] = function ($app) {
+			return new VCSService($app);
 		};
 		
 		$this->app->register(new \Silex\Provider\TwigServiceProvider(),
