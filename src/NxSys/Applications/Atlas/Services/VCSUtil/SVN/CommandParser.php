@@ -30,7 +30,7 @@ class CommandParser
 	public function runCommand()
 	{
 		$this->process = new Process\Process($this->buildCommandString());
-		$this->process->run();
+		$this->process->mustrun();
 		return $this;
 	}
 	
@@ -38,6 +38,7 @@ class CommandParser
 	{
 		if ($this->process != null)
 		{
+			var_dump($this->process->getErrorOutput());
 			return $this->process->getOutput();
 		}
 		return null;
@@ -71,7 +72,6 @@ class CommandParser
 		{
 			$sCmdStr .= ' ' . $sArg;
 		}
-		
 		return $this->escapeString($sCmdStr);
 	}
 	
@@ -83,7 +83,7 @@ class CommandParser
             $sString = str_replace( '%', '"%"', $sString );
             $sString = preg_replace( '(\\\\$)', '\\\\\\\\', $sString );
 
-            return '"' . $sString . '"';
+            return $sString;
         }
 
         return escapeshellarg( $sString );

@@ -13,7 +13,7 @@ class Examine
 		$oVCS = $oApp['atlas.vcs'];
 		var_dump($oSearchService->checkStatus());
 		$html = "<html><body><ul>";
-		var_dump($oVCS->runTest("Atlas"));
+		$oVCS->runTest("Atlas");
 		$html = $html . '</ul></body></html>';
 		return $html;
 		
