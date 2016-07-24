@@ -21,7 +21,8 @@ class VCS
 	{
 		$aRepo = $this->repos[$sRepo];
 		$this->svn = new SVN\SVNLibrary($aRepo['url']);
-		var_dump($this->svn->info());
+		var_dump($this->svn->info($aRepo['url'], 10));
+		var_dump($this->svn->ls($aRepo['url']));
 		
 	}
 }

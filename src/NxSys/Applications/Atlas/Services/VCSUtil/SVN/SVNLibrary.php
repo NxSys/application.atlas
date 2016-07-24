@@ -30,8 +30,81 @@ class SVNLibrary
 		return $sResults;
 	}
 	
-	public function info()
+	public function info($sPath = null, $sRev = null)
 	{
-		return $this->runCommand("info", [$this->url], ['xml' => null]);
+		$aOptions = ["xml" => null];
+		if ($sPath == null)
+		{
+			$sPath = $this->url;
+		}
+		
+		if ($iRev != null)
+		{
+			$aOptions["revision"] = $sRev;
+		}
+		return $this->runCommand("info", [$sPath], $aOptions);
+	}
+	
+	public function ls($sPath = null, $sRev = null, $bRecursive = true)
+	{
+		$aOptions = ["xml" => null];
+		if ($bRecursive)
+		{
+			$aOptions["recursive"] = null;
+		}
+		
+		if ($sPath == null)
+		{
+			$sPath = $this->url;
+		}
+		
+		if ($iRev != null)
+		{
+			$aOptions["revision"] = $sRev;
+		}
+		
+		return $this->runCommand("list", [$sPath], $aOptions);
+	}
+	
+	public function cat($sPath)
+	{
+		return $this->runCommand("cat", [$sPath]);
+	}
+	
+	public function blame($sPath, $sRev = null, $bUseMergeHistory = true)
+	{
+		$aOptions = ["xml" => null];
+		if ($bUseMergeInfo)
+		{
+			$aOptions["use-merge-history"] = null;
+		}
+		
+		if ($iRev != null)
+		{
+			$aOptions["revision"] = $sRev;
+		}
+		
+		return $this->runCommand("blame", [$sPath], $aOptions);
+	}
+	
+	public function log($sPath, $sRev = null, $bStopOnCopy = true, $bUseMergeHistory = true)
+	{
+		$aOptions = ["xml" => null];
+		if ($bStopOnCopy)
+		{
+			$aOptions["stop-on-copy"] = null;
+		}
+		
+		if ($bUseMergeInfo)
+		{
+			$aOptions["use-merge-history"] = null;
+		}
+		
+		if ($iRev != null)
+		{
+			$aOptions["revision"] = $sRev;
+		}
+		
+		return $this->runCommand("log", [$sPath], $aOptions);
 	}
 }
