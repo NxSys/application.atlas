@@ -2,6 +2,7 @@
 
 namespace NxSys\Applications\Atlas\Services\VCSUtil\SVN;
 
+use Arbit\Xml as XmlLib;
 
 class SVNLibrary
 {
@@ -30,6 +31,12 @@ class SVNLibrary
 		return $sResults;
 	}
 	
+	protected function parseXml($sOutput)
+	{
+		var_dump($sOutput);
+		return XmlLib\Document::loadString($sOutput);
+	}
+	
 	public function info($sPath = null, $sRev = null)
 	{
 		$aOptions = ["xml" => null];
@@ -38,11 +45,11 @@ class SVNLibrary
 			$sPath = $this->url;
 		}
 		
-		if ($iRev != null)
+		if ($sRev != null)
 		{
 			$aOptions["revision"] = $sRev;
 		}
-		return $this->runCommand("info", [$sPath], $aOptions);
+		return $this->parseXml($this->runCommand("info", [$sPath], $aOptions));
 	}
 	
 	public function ls($sPath = null, $sRev = null, $bRecursive = true)
@@ -58,12 +65,12 @@ class SVNLibrary
 			$sPath = $this->url;
 		}
 		
-		if ($iRev != null)
+		if ($sRev != null)
 		{
 			$aOptions["revision"] = $sRev;
 		}
 		
-		return $this->runCommand("list", [$sPath], $aOptions);
+		return $this->parseXml($this->runCommand("list", [$sPath], $aOptions));
 	}
 	
 	public function cat($sPath)
@@ -79,7 +86,7 @@ class SVNLibrary
 			$aOptions["use-merge-history"] = null;
 		}
 		
-		if ($iRev != null)
+		if ($sRev != null)
 		{
 			$aOptions["revision"] = $sRev;
 		}
@@ -100,7 +107,7 @@ class SVNLibrary
 			$aOptions["use-merge-history"] = null;
 		}
 		
-		if ($iRev != null)
+		if ($sRev != null)
 		{
 			$aOptions["revision"] = $sRev;
 		}

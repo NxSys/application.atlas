@@ -63,6 +63,7 @@ class Search
 		$oFileType = $this->index->getType('file');
 		$oFileType->setMapping( (new SearchMapping($oFileType,
 										  ['path' => ['type' => 'string'],
+										   'directory' => ['type' => 'boolean'],
 										   'contents' => ['type' => 'string']]))->setParent('commit'));
 		
 		

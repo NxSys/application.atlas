@@ -5,6 +5,7 @@ namespace NxSys\Applications\Atlas\Models;
 class File extends BaseModel
 {
 	public $Path = []; //String
+	public $Directory = False; //Boolean
 	public $Contents = []; //String
 	public $Commit = []; //Models\Commit
 	
@@ -23,6 +24,16 @@ class File extends BaseModel
 	public function addPath(string $Path)
 	{
 		$this->Path[] = $Path;
+	}
+	
+	public function isDirectory()
+	{
+		return $this->Directory;
+	}
+	
+	public function setDirectory(bool $Directory)
+	{
+		$this->Directory = $Directory;
 	}
 	
 	public function getContents()
