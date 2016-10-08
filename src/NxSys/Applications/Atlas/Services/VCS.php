@@ -21,13 +21,36 @@ class VCS
 	
 	public function runTest($sRepo)
 	{
-		$this->cacheDir($sRepo);
+		$this->cacheDir($sRepo, "/", "20");
+		var_dump($this->repos[$sRepo]);
 	}
 	
-	public function cacheDir($sRepo, $sPath = "/")
+	public function cacheDir($sRepo, $sPath = "/", $sRevisionCap = "HEAD")
 	{
 		$aRepo = $this->repos[$sRepo];
-		$r = $aRepo->ls($aRepo->url . $sPath);
+		$aCommits = [];
+		$oLogs = $aRepo->log($aRepo->url . $sPath, "$sRevisionCap:1", false, true, true);
+		foreach ($oLogs->logentry as $oLog)
+		{
+			$sRev = $oLog['revision'];
+			$sMsg = (string) $oLog->msg;
+			$sAuthor = (string) $oLog->author;
+			$sDate = (string) $oLog->date;
+			
+			$aCommits[$sRev] = ['msg' => $sMsg,
+								'author' => $sAuthor,
+								'date' => $sDate,
+								'paths' => []];
+			
+			/**
+			 * Not sure that we need a full list of modified paths yet, commenting this out for performance purposes.
+			foreach ($oLog->paths as $oPath)
+			{
+				$aCommits[$sRev][] = (string) $oPath;
+			}
+			**/
+		}
+		$r = $aRepo->ls($aRepo->url . $sPath, $sRevisionCap);
 		$files = $r->list->entry;
 		foreach ($files as $file)
 		{
@@ -41,6 +64,10 @@ class VCS
 			$oNewFile["Revision"] = $sRevision;
 			$oNewFile["Author"] = $sAuthor;
 			$oNewFile["Date"] = $sDate;
+			
+			$aCommit = $aCommits[$sRevision];
+			
+			$oNewFile["Message"] = $aCommit['msg'];
 			
 			$aRepo->files->addChild($oNewFile);
 		}

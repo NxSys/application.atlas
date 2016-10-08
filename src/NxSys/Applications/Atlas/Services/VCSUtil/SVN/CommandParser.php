@@ -38,7 +38,7 @@ class CommandParser
 	{
 		if ($this->process != null)
 		{
-			var_dump($this->process->getErrorOutput());
+			//var_dump($this->process->getErrorOutput());
 			return $this->process->getOutput();
 		}
 		return null;
@@ -64,7 +64,14 @@ class CommandParser
 			}
 			else
 			{
-				$sCmdStr .= ' ' . $sOptionIndicator . $sOption . '=' . $sValue;
+				if (strpos($sValue, ' ') === false)
+				{
+					$sCmdStr .= ' ' . $sOptionIndicator . $sOption . '=' . $sValue;
+				}
+				else
+				{
+					$sCmdStr .= ' ' . $sOptionIndicator . $sOption . '="' . $sValue . '"';
+				}
 			}
 		}
 		
@@ -72,6 +79,8 @@ class CommandParser
 		{
 			$sCmdStr .= ' ' . $sArg;
 		}
+		
+		//var_dump($this->escapeString($sCmdStr));
 		return $this->escapeString($sCmdStr);
 	}
 	

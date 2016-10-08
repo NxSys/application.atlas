@@ -33,7 +33,7 @@ class SVNLibrary
 	
 	protected function parseXml($sOutput)
 	{
-		var_dump($sOutput);
+		//var_dump($sOutput);
 		return XmlLib\Document::loadString($sOutput);
 	}
 	
@@ -81,7 +81,7 @@ class SVNLibrary
 	public function blame($sPath, $sRev = null, $bUseMergeHistory = true)
 	{
 		$aOptions = ["xml" => null];
-		if ($bUseMergeInfo)
+		if ($bUseMergeHistory)
 		{
 			$aOptions["use-merge-history"] = null;
 		}
@@ -94,7 +94,7 @@ class SVNLibrary
 		return $this->runCommand("blame", [$sPath], $aOptions);
 	}
 	
-	public function log($sPath, $sRev = null, $bStopOnCopy = true, $bUseMergeHistory = true)
+	public function log($sPath, $sRev = null, $bStopOnCopy = true, $bUseMergeHistory = true, $bVerbose = false)
 	{
 		$aOptions = ["xml" => null];
 		if ($bStopOnCopy)
@@ -102,7 +102,7 @@ class SVNLibrary
 			$aOptions["stop-on-copy"] = null;
 		}
 		
-		if ($bUseMergeInfo)
+		if ($bUseMergeHistory)
 		{
 			$aOptions["use-merge-history"] = null;
 		}
@@ -112,6 +112,11 @@ class SVNLibrary
 			$aOptions["revision"] = $sRev;
 		}
 		
-		return $this->runCommand("log", [$sPath], $aOptions);
+		if ($bVerbose)
+		{
+			$aOptions['verbose'] = null;
+		}
+		
+		return $this->parseXml($this->runCommand("log", [$sPath], $aOptions));
 	}
 }
