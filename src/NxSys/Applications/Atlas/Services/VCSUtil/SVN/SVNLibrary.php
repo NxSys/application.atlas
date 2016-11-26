@@ -75,7 +75,7 @@ class SVNLibrary
 	
 	public function cat($sPath)
 	{
-		return $this->runCommand("cat", [$sPath]);
+		return $this->runCommand("cat", [$this->url . $sPath]);
 	}
 	
 	public function blame($sPath, $sRev = null, $bUseMergeHistory = true)

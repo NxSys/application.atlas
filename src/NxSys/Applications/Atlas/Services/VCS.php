@@ -22,7 +22,8 @@ class VCS
 	public function runTest($sRepo)
 	{
 		$this->cacheDir($sRepo, "/", "20");
-		var_dump($this->repos[$sRepo]);
+		var_dump($this->repos[$sRepo]->files->find('/trunk/AGPL.txt')->getContents());
+		//var_dump($this->repos[$sRepo]);
 	}
 	
 	public function cacheDir($sRepo, $sPath = "/", $sRevisionCap = "HEAD")
@@ -60,7 +61,7 @@ class VCS
 			$sAuthor = (string) $file->commit->author;
 			$sDate = (string) $file->commit->date;
 			
-			$oNewFile = new VCS\FileTree($sFilePath, $sKind === "dir");
+			$oNewFile = new VCS\FileTree($aRepo, $sFilePath, $sKind === "dir");
 			$oNewFile["Revision"] = $sRevision;
 			$oNewFile["Author"] = $sAuthor;
 			$oNewFile["Date"] = $sDate;

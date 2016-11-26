@@ -4,8 +4,9 @@ namespace NxSys\Applications\Atlas\Services\VCSUtil;
 
 class FileTree implements \RecursiveIterator, \Countable, \ArrayAccess
 {
-	public function __construct($sPath = "/", $bIsDir = True, FileTree $oParent = null)
+	public function __construct($oRepo, $sPath = "/", $bIsDir = True, FileTree $oParent = null)
 	{
+		$this->repo = $oRepo;
 		$this->path = $sPath;
 		$this->isDir = $bIsDir;
 		$this->parent = $oParent;
@@ -70,7 +71,7 @@ class FileTree implements \RecursiveIterator, \Countable, \ArrayAccess
 			if ($oNextNode === null)
 			{
 				//Intermediate dir doesn't exist. Add it.
-				$oNextNode = new FileTree($sNextNodePath, True, $this);
+				$oNextNode = new FileTree($this->repo, $sNextNodePath, True, $this);
 			}
 			return $oNextNode->addChild($oChild);
 		}
@@ -173,7 +174,14 @@ class FileTree implements \RecursiveIterator, \Countable, \ArrayAccess
 			return $this->children[$sPath];
 		}
 		
-		$sNextNode = $sSearchRoot . '/' . $aSearchPath[$iMyDepth];
+		if ($sSearchRoot == '/')
+		{
+			$sNextNode = '/' . $aSearchPath[$iMyDepth];
+		}
+		else
+		{
+			$sNextNode = $sSearchRoot . '/' . $aSearchPath[$iMyDepth];
+		}
 		if (array_key_exists($sNextNode, $this->children))
 		{
 			if ($this->children[$sNextNode]->isDir)
@@ -189,6 +197,11 @@ class FileTree implements \RecursiveIterator, \Countable, \ArrayAccess
 		}
 		//Child path doesn't exist.
 		return null;
+	}
+	
+	public function getContents()
+	{
+		return $this->repo->cat($this->path);
 	}
 	
 	//###Countable###
