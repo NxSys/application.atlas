@@ -17,15 +17,20 @@
 * license terms.
 */
 {
-	"files":
+	"include":
 	[
-		"app.ts"
+		"*"
 	],
 	"compilerOptions":
 	{
 		//Please change this section as your project requires
 		"rootDir": ".",
 		"outDir": "../webroot/js",
+		"declarationDir": "../webroot/js/types",
+		"baseUrl": "./modules",
+		"lib":
+			["es5", "dom",
+			 "es2015.symbol.wellknown"],
 
 		//Please refrain from changing below without due consideration
 		"declaration": true,
@@ -33,6 +38,7 @@
 		"module": "system",
 		"target": "es5",
 		"noFallthroughCasesInSwitch": true,
+		"traceResolution": true,
 
 		// The following are considered team/org policy, please do not disable
 		"forceConsistentCasingInFileNames": true,
@@ -41,6 +47,8 @@
 		"noEmitOnError": true,
 		"noImplicitAny": true,
 		"noImplicitReturns": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
 		"removeComments": true
 	}
 }

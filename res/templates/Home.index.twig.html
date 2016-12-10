@@ -3,6 +3,55 @@
 
 {% block title %}Home{% endblock %}
 
-{% block content %}
-~~Hello world, from {{name}}
+{% block treemap %}
+<div class="columns">
+	TREEMAP!
+</div>
+{% endblock %}
+
+{% block fileview %}
+<textarea id="fileviewer" class="columns">
+	{{file_contents}}
+</textarea>
+<!-- <script src="js/vendor/codemirror/lib/codemirror.js"
+		type="text/javascript" charset="utf-8"></script>
+<script src="js/vendor/codemirror/mode/meta.js"
+		type="text/javascript" charset="utf-8"></script>
+ --><script>
+	var sCurExt="{{ file_ext|default('txt') }}";
+	var aCMConf=
+	{
+		theme: "night",
+		lineNumbers: true
+	};
+	App.setupCodemirror(document.getElementById('fileviewer'),
+						sCurExt, aCMConf);
+	// if(oSuggestedMode=CodeMirror.findModeByExtension(sCurExt))
+	// {
+	// 	cml=true;
+	// 	sModeName=oSuggestedMode.mime;
+	// 	var script = document.createElement('script');
+	// 	script.onload = function () {
+	// 	    cml=false;
+	// 	    loadCm(aCMConf);
+	// 	};
+	// 	SystemJS.import("js/vendor/codemirror/mode/"
+	// 				+oSuggestedMode.mode+"/"
+	// 				+oSuggestedMode.mode+".js");
+	// 	// script.src = "js/vendor/codemirror/mode/"
+	// 	// 			+oSuggestedMode.mode+"/"
+	// 	// 			+oSuggestedMode.mode+".js";	
+	// 	// document.head.appendChild(script);
+	// }
+	// else
+	// {
+	// 	aCMConf.mode='null';
+	// 	loadCm(aCMConf)
+	// }
+	// function loadCm(cnf)
+	// {
+	// 	myCodeMirror = CodeMirror.fromTextArea(document.getElementById('fileviewer'), cnf);	
+	// }
+	
+</script>
 {% endblock %}

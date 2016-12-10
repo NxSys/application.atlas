@@ -204,6 +204,21 @@ class FileTree implements \RecursiveIterator, \Countable, \ArrayAccess
 		return $this->repo->cat($this->path);
 	}
 	
+	/**
+	 * Returns the extenstion for the current file
+	 * @throws DirectoryIsNotAFileException when $this is a directory
+	 * @return string|null extension of the current file, if file
+	 */
+	public function getFileExtenstion()
+	{
+		if($this->isDir)
+		{
+			throw new DirectoryIsNotAFileException('Can not get the extenstion of a directory');
+		}		
+		$string=pathinfo($this->path, PATHINFO_EXTENSION);
+		return $string;
+	}
+	
 	//###Countable###
 	public function count()
 	{
@@ -274,3 +289,4 @@ class FileTree implements \RecursiveIterator, \Countable, \ArrayAccess
 }
 
 class FileExistsException extends \OutOfBoundsException implements VCSExceptionType{}
+class DirectoryIsNotAFileException extends \DomainException implements VCSExceptionType{}

@@ -56,17 +56,24 @@ tests/unit.suite.yml -text
 tests/unit/_bootstrap.php -text
 ts-src/app.ts -text svneol=unset#application/octet-stream
 ts-src/tsconfig.json -text
+ts-src/types/codemirror/codemirror-runmode.d.ts -text
+ts-src/types/codemirror/codemirror-showhint.d.ts -text
+ts-src/types/codemirror/codemirror.d.ts -text
+ts-src/types/codemirror/searchcursor.d.ts -text
 ts-src/types/foundation-sites/foundation-sites.d.ts -text
 ts-src/types/jquery/jquery.d.ts -text
+ts-src/types/systemjs/systemjs-0.18.4.d.ts -text
+ts-src/types/systemjs/systemjs.d.ts -text
 webroot/css/app.css -text
 webroot/css/foundation.css -text
 webroot/css/foundation.min.css -text
 webroot/humans.txt -text
 webroot/index.html -text
 webroot/index.php -text
-webroot/js/jquery-2.2.3.min.js -text
+webroot/js/types/app.d.ts -text
 webroot/js/vendor/foundation.js -text
 webroot/js/vendor/foundation.min.js -text
+webroot/js/vendor/jquery-2.2.3.min.js -text
 webroot/js/vendor/jquery.js -text
 webroot/js/vendor/what-input.js -text
 webroot/robots.txt -text svneol=unset#application/octet-stream

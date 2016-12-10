@@ -1,3 +1,4 @@
+etc/cache/*
 webroot/js/app.d.ts
 webroot/js/app.js
 webroot/js/app.js.map

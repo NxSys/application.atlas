@@ -29,7 +29,7 @@ class CommandParser
 	
 	public function runCommand()
 	{
-		$this->process = new Process\Process($this->buildCommandString());
+		$this->process = new Process\Process($this->buildCommandString(), APP_CACHE_DIR);
 		$this->process->mustrun();
 		return $this;
 	}

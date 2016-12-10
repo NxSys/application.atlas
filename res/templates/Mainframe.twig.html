@@ -6,25 +6,47 @@
 			<meta http-equiv="x-ua-compatible" content="ie=edge">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="css/foundation.min.css" />
+            <link rel="stylesheet" href="js/vendor/codemirror/lib/codemirror.css" />
+			
             <link rel="stylesheet" href="css/app.css" />
             <title>{% block title %}{% endblock %} - {{app.ident}}</title>
-			<script src="js/jquery-2.2.3.min.js" type="application/javascript"></script>
-			<script src="js/vendor/what-input.js" type="application/javascript"></script>
-			<script src="js/vendor/foundation.min.js" type="application/javascript"></script>
+			<script src="js/vendor/systemjs/system.js" type="application/javascript"></script>
+			<!-- <script src="js/jquery-2.2.3.min.js" type="application/javascript"></script> -->
+			<!-- <script src="js/vendor/what-input.js" type="application/javascript"></script> -->
+			<!-- <script src="js/vendor/foundation.min.js" type="application/javascript"></script> -->
 			<script src="js/app.js" type="application/javascript"></script>
+	        <script type="text/javascript">
+			SystemJS.config({
+			   baseURL: 'js'
+			  });
+			SystemJS.defaultJSExtensions = true;
+			SystemJS.import('vendor/jquery-2.2.3.min.js');
+			SystemJS.import('vendor/what-input.js');
+			SystemJS.import('vendor/foundation.min.js');
+			SystemJS.import('vendor/codemirror/lib/codemirror.js');
+			</script>
+	        <script type="text/javascript">var App=new OnxAtlas.App;</script>
         {% endblock %}
     </head>
     <body>
+        <script type="text/javascript">App.onPageLoadBegin();</script>
 		<div class="row">
 			<div class="large-12 columns">
-				<div id="content">{% block content_full %}
+				<div id="content">{% block page %}
 					<div id="headbar" class="row">
-						<div id="brand" class="columns small-2"><img clas="ace_logo" src="" height="10" width="10"/><span id="prjname" class="text-center">Atlas: Code Explorer</span></div>
+						<div id="brand" class="columns small-2"><img class="ace_logo" src="" height="10" width="10"/><span id="prjname" class="text-center">Atlas: Code Explorer</span></div>
 						<div id="find" class="columns small-8"><input type="text" placeholder="Search this project" class="text-center"/></div>
 						<div id="info" class="columns small-2">Info</div>
 					</div>
 					<div id="main-content" class="row">
-						<div class="columns small-12">{% block content_multiview %}MultiView{% endblock %}</div>
+						<div class="columns small-12">{% block content_full %}
+							<div id="treemapp-box" class="row">
+								{% block treemap %}{% endblock %}
+							</div>
+							<div id="file-box" class="row">
+								{% block fileview %}{% endblock %}
+							</div>
+						{% endblock %}</div>
 					</div>
 				{% endblock %}</div>
 			</div>
@@ -41,5 +63,6 @@
 				</small>
 			</div>
         </div>
+        <script type="text/javascript">App.onPageLoadEnd();</script>
     </body>
 </html>
