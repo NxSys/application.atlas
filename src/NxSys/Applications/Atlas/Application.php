@@ -56,11 +56,12 @@ class Application
 		$this->app->mount('noroute', new \Silex\ControllerCollection(new \Silex\Route));
 		$this->app->match('ping', function(){ return APP_IDENT.'-'.APP_VERSION;});
 		$this->app->match('/', 		'NxSys\Applications\Atlas\Web\Controllers\Home::index');
-		$this->app->match('/setup', 'NxSys\Applications\Atlas\Web\Controllers\Home::index');
+		$this->app->match('setup', 'NxSys\Applications\Atlas\Web\Controllers\Home::index');
 		//$this->app->match('/list', [new Web\Controlers\Home, 'index']);
-		$this->app->match('/examine', 'NxSys\Applications\Atlas\Web\Controllers\Examine::index');
-		//$this->app->match('/search', [new Web\Controlers\Home, 'index']);
-		//$this->app->match('/list', [new Web\Controlers\Home, 'index']);
+		$this->app->match('examine', 'NxSys\Applications\Atlas\Web\Controllers\Examine::index');
+		//$this->app->match('/search', [new Web\Controlers\Search, 'index']);
+		$this->app->match('sys/bel-views', 'NxSys\Applications\Atlas\Web\Controlers\BEL::getWebViews');
+		$this->app->match('sys/bel-data-tree', 'NxSys\Applications\Atlas\Web\Controlers\BEL::getDataForTree');
     }
 	
 	public function services()

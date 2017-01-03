@@ -16,10 +16,6 @@ namespace OnxAtlas
 		public oEditCtrl: Object;
 		public constructor()
 		{
-			SystemJS.config({
-			   baseURL: '/js'
-			  });
-			SystemJS.defaultJSExtensions = true;
 		}
 		public onPageLoadBegin()
 		{	

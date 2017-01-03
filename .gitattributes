@@ -33,6 +33,7 @@ src/NxSys/Applications/Atlas/Services/VCSUtil/Repository.php -text
 src/NxSys/Applications/Atlas/Services/VCSUtil/SVN/CommandParser.php -text
 src/NxSys/Applications/Atlas/Services/VCSUtil/SVN/SVNLibrary.php -text
 src/NxSys/Applications/Atlas/Services/VCSUtil/VCSExceptionType.php -text
+src/NxSys/Applications/Atlas/Web/Controllers/BEL.php -text
 src/NxSys/Applications/Atlas/Web/Controllers/Examine.php -text
 src/NxSys/Applications/Atlas/Web/Controllers/Home.php -text
 tests/_bootstrap.php -text
@@ -71,6 +72,13 @@ webroot/humans.txt -text
 webroot/index.html -text
 webroot/index.php -text
 webroot/js/types/app.d.ts -text
+webroot/js/vendor/codemirror/AUTHORS -text
+webroot/js/vendor/codemirror/CHANGELOG.md -text
+webroot/js/vendor/codemirror/CONTRIBUTING.md -text
+webroot/js/vendor/codemirror/LICENSE -text
+webroot/js/vendor/codemirror/README.md -text
+webroot/js/vendor/codemirror/index.html -text
+webroot/js/vendor/codemirror/package.json -text
 webroot/js/vendor/foundation.js -text
 webroot/js/vendor/foundation.min.js -text
 webroot/js/vendor/jquery-2.2.3.min.js -text
