@@ -10,48 +10,27 @@
 {% endblock %}
 
 {% block fileview %}
-<textarea id="fileviewer" class="columns">
-	{{file_contents}}
-</textarea>
-<!-- <script src="js/vendor/codemirror/lib/codemirror.js"
-		type="text/javascript" charset="utf-8"></script>
-<script src="js/vendor/codemirror/mode/meta.js"
-		type="text/javascript" charset="utf-8"></script>
- --><script>
-	var sCurExt="{{ file_ext|default('txt') }}";
-	var aCMConf=
-	{
-		theme: "night",
-		lineNumbers: true
+<script>
+	var sFileData=`{{file_contents|raw}}`;
+</script>
+<div id="fileviewer"></div>
+
+<script src="js/vendor/vs/loader.js"></script>
+<script>
+	var oEditorConfig = {
+            value: [sFileData].join('\n'),
+            language: 'php',
+			readOnly: true,
+			theme: 'vs-dark',
+			scrollBeyondLastLine: false,
+			renderWhitespace: 'boundary',
+			renderControlCharacters: true,
+			renderIndentGuides: true
 	};
-	App.setupCodemirror(document.getElementById('fileviewer'),
-						sCurExt, aCMConf);
-	// if(oSuggestedMode=CodeMirror.findModeByExtension(sCurExt))
-	// {
-	// 	cml=true;
-	// 	sModeName=oSuggestedMode.mime;
-	// 	var script = document.createElement('script');
-	// 	script.onload = function () {
-	// 	    cml=false;
-	// 	    loadCm(aCMConf);
-	// 	};
-	// 	SystemJS.import("js/vendor/codemirror/mode/"
-	// 				+oSuggestedMode.mode+"/"
-	// 				+oSuggestedMode.mode+".js");
-	// 	// script.src = "js/vendor/codemirror/mode/"
-	// 	// 			+oSuggestedMode.mode+"/"
-	// 	// 			+oSuggestedMode.mode+".js";	
-	// 	// document.head.appendChild(script);
-	// }
-	// else
-	// {
-	// 	aCMConf.mode='null';
-	// 	loadCm(aCMConf)
-	// }
-	// function loadCm(cnf)
-	// {
-	// 	myCodeMirror = CodeMirror.fromTextArea(document.getElementById('fileviewer'), cnf);	
-	// }
-	
+    require.config({ paths: { 'vs': './js/vendor/vs' }});
+    require(['vs/editor/editor.main'], function() {
+        var editor = monaco.editor.create(document.getElementById('fileviewer'), oEditorConfig);
+    });
+</script>
 </script>
 {% endblock %}

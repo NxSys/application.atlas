@@ -50,12 +50,12 @@ class Application
 		//$this->oWebApp['monolog']->debug('Testing the Monolog logging.');
 		//self::$aRegistry['svc']['log']=$this->oWebApp['monolog'];
 	}
-    
+
     public function routes()
     {
 		$this->app->mount('noroute', new \Silex\ControllerCollection(new \Silex\Route));
 		$this->app->match('ping', function(){ return APP_IDENT.'-'.APP_VERSION;});
-		$this->app->match('/', 		'NxSys\Applications\Atlas\Web\Controllers\Home::index');
+		$this->app->match('', 		'NxSys\Applications\Atlas\Web\Controllers\Home::index');
 		$this->app->match('setup', 'NxSys\Applications\Atlas\Web\Controllers\Home::index');
 		//$this->app->match('/list', [new Web\Controlers\Home, 'index']);
 		$this->app->match('examine', 'NxSys\Applications\Atlas\Web\Controllers\Examine::index');
@@ -63,13 +63,13 @@ class Application
 		$this->app->match('sys/bel-views', 'NxSys\Applications\Atlas\Web\Controlers\BEL::getWebViews');
 		$this->app->match('sys/bel-data-tree', 'NxSys\Applications\Atlas\Web\Controlers\BEL::getDataForTree');
     }
-	
+
 	public function services()
 	{
 		$this->app['name']=APP_NAME;
 		$this->app['ident']=APP_IDENT;
 		$this->app['version']=APP_VERSION;
-		
+
 		$this->app['elastica.search'] = function ($app) {
 			return new SearchClient($app['config']['search']);
 		};
@@ -79,7 +79,7 @@ class Application
 		$this->app['atlas.vcs'] = function ($app) {
 			return new VCSService($app);
 		};
-		
+
 		$this->app->register(new \Silex\Provider\TwigServiceProvider(),
 							 ['twig.path' => APP_RESOURCE_DIR.DIRECTORY_SEPARATOR.'templates',
 							  'twig.options' => ['cache' => APP_ETC_DIR.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'tmpl',
@@ -91,10 +91,10 @@ class Application
 	{
         //get configuration
 		$this->loadConfig();
-		
+
 		//identify self url
         //self::$aRegistry['conf']['sHomeUrl']=sprintf('%s://%s', $aHomeURL['scheme'], $aHomeURL['host']);
-		
+
 		//var_dump($aPortMap);
 		//build running config
 			//setup event listeners
@@ -103,12 +103,12 @@ class Application
 		$this->services();
 		$this->app->boot();
 	}
-	
+
 	public function loadConfig()
 	{
 		$this->app->register(new ConfigServiceProvider(APP_CONFIG_DIR.DIRECTORY_SEPARATOR.'config.yml', [], null, 'config'));
 		$aInclude = $this->app['config']['include'];
-		
+
 		foreach ($aInclude as $sConfigFile)
 		{
 			$this->app->register(new ConfigServiceProvider(APP_CONFIG_DIR.DIRECTORY_SEPARATOR.$sConfigFile, [], null, 'config'));

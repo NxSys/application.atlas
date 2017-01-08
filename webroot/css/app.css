@@ -1,6 +1,6 @@
 #fileviewer
 {
-	position: fixed;
-	width: 90%;
-	height: 99%;
+	width:  100%;
+	height: 600px;
+	border:1px solid grey
 }

@@ -2,7 +2,7 @@
 
 namespace NxSys\Applications\Atlas\Services;
 
-use NxSys\Applications\Atlas\Services\VCSUtil as VCS;
+use NxSys\Applications\Atlas\Services\VCSUtil as VendorVCS;
 
 use Silex\Application as WebApp;
 
@@ -15,17 +15,17 @@ class VCS
 		$this->repos = [];
 		foreach ($oApp['config']['svn'] as $sRepoName => $aRepoConfig)
 		{
-			$this->repos[$sRepoName] = new VCS\Repository('SVN', $aRepoConfig['url'], $aRepoConfig['user'], $aRepoConfig['pass']);
+			$this->repos[$sRepoName] = new VendorVCS\Repository('SVN', $aRepoConfig['url'], $aRepoConfig['user'], $aRepoConfig['pass']);
 		}
 	}
-	
+
 	public function runTest($sRepo)
 	{
 		$this->cacheDir($sRepo, "/", "20");
 		var_dump($this->repos[$sRepo]->files->find('/trunk/AGPL.txt')->getContents());
 		//var_dump($this->repos[$sRepo]);
 	}
-	
+
 	public function cacheDir($sRepo, $sPath = "/", $sRevisionCap = "HEAD")
 	{
 		$aRepo = $this->repos[$sRepo];
@@ -37,12 +37,12 @@ class VCS
 			$sMsg = (string) $oLog->msg;
 			$sAuthor = (string) $oLog->author;
 			$sDate = (string) $oLog->date;
-			
+
 			$aCommits[$sRev] = ['msg' => $sMsg,
 								'author' => $sAuthor,
 								'date' => $sDate,
 								'paths' => []];
-			
+
 			/**
 			 * Not sure that we need a full list of modified paths yet, commenting this out for performance purposes.
 			foreach ($oLog->paths as $oPath)
@@ -60,16 +60,16 @@ class VCS
 			$sRevision = $file->commit[0]['revision'];
 			$sAuthor = (string) $file->commit->author;
 			$sDate = (string) $file->commit->date;
-			
-			$oNewFile = new VCS\FileTree($aRepo, $sFilePath, $sKind === "dir");
+
+			$oNewFile = new VendorVCS\FileTree($aRepo, $sFilePath, $sKind === "dir");
 			$oNewFile["Revision"] = $sRevision;
 			$oNewFile["Author"] = $sAuthor;
 			$oNewFile["Date"] = $sDate;
-			
+
 			$aCommit = $aCommits[$sRevision];
-			
+
 			$oNewFile["Message"] = $aCommit['msg'];
-			
+
 			$aRepo->files->addChild($oNewFile);
 		}
 	}
