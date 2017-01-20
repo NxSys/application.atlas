@@ -26,7 +26,10 @@ class Home
         $oFileNode=$oCurrRepo->files->find('/trunk/src/NxSys/Applications/Atlas/Application.php');
         
         $aPage=[];
-        $aPage['file_contents']=$oFileNode->getContents();
+        $sFileContents = $oFileNode->getContents();
+        $sEscapedContents = str_replace("\\", "\\\\", $sFileContents); //Required to escape JS escaping in front-end.
+        
+        $aPage['file_contents']=$sEscapedContents;
         $aPage['file_ext']=$oFileNode->getFileExtenstion();
         
         $sContent=$oApp['twig']->render('Home.index.twig.html', $aPage);
