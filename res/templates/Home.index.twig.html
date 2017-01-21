@@ -10,27 +10,5 @@
 {% endblock %}
 
 {% block fileview %}
-<script>
-	var sFileData=`{{file_contents|raw}}`;
-</script>
-<div id="fileviewer"></div>
-
-<script src="js/vendor/vs/loader.js"></script>
-<script>
-	var oEditorConfig = {
-            value: sFileData,
-            language: 'php',
-			readOnly: true,
-			theme: 'vs-dark',
-			scrollBeyondLastLine: false,
-			renderWhitespace: 'boundary',
-			renderControlCharacters: true,
-			renderIndentGuides: true
-	};
-    require.config({ paths: { 'vs': './js/vendor/vs' }});
-    require(['vs/editor/editor.main'], function() {
-        var editor = monaco.editor.create(document.getElementById('fileviewer'), oEditorConfig);
-    });
-</script>
-</script>
+{{ render(controller('NxSys\\Applications\\Atlas\\Web\\Controllers\\Components\\Editor::view')) }}
 {% endblock %}

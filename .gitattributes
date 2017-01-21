@@ -16,6 +16,7 @@ libs/silex-2.0.4.phar -text svneol=unset#unset
 res/config-defaults.neon -text
 res/templates/Home.index.twig.html -text
 res/templates/Mainframe.twig.html -text
+res/templates/components/Editor.view.twig.html -text
 /sonar-project.properties -text
 src/Common.php -text
 src/NxSys/Applications/Atlas/Application.php -text
@@ -35,6 +36,7 @@ src/NxSys/Applications/Atlas/Services/VCSUtil/SVN/CommandParser.php -text
 src/NxSys/Applications/Atlas/Services/VCSUtil/SVN/SVNLibrary.php -text
 src/NxSys/Applications/Atlas/Services/VCSUtil/VCSExceptionType.php -text
 src/NxSys/Applications/Atlas/Web/Controllers/BEL.php -text
+src/NxSys/Applications/Atlas/Web/Controllers/Components/Editor.php -text
 src/NxSys/Applications/Atlas/Web/Controllers/Examine.php -text
 src/NxSys/Applications/Atlas/Web/Controllers/Home.php -text
 tests/_bootstrap.php -text

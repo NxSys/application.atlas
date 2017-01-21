@@ -22,14 +22,15 @@ namespace NxSys\Applications\Atlas;
 
 
 //Vendor Namespaces
+use Silex;
 use Silex\Application as WebApp;
 use Symfony\Component\HttpFoundation as SfHttp;
 use Igorw\Silex\ConfigServiceProvider;
-
 //Service Namespaces
 use NxSys\Applications\Atlas\Services\Search as SearchService;
 use NxSys\Applications\Atlas\Services\VCS as VCSService;
 use Elastica\Client as SearchClient;
+
 
 
 class Application
@@ -56,6 +57,7 @@ class Application
 		$this->app->match('ping', function(){ return APP_IDENT.'-'.APP_VERSION;});
 		$this->app->match('', 		'NxSys\Applications\Atlas\Web\Controllers\Home::index');
 		$this->app->match('setup', 'NxSys\Applications\Atlas\Web\Controllers\Home::index');
+		$this->app->match('editor', 'NxSys\Applications\Atlas\Web\Controllers\Components\Editor::view');
 		//$this->app->match('/list', [new Web\Controlers\Home, 'index']);
 		$this->app->match('examine', 'NxSys\Applications\Atlas\Web\Controllers\Examine::index');
 		//$this->app->match('/search', [new Web\Controlers\Search, 'index']);
@@ -78,14 +80,16 @@ class Application
 		$this->app['atlas.vcs'] = function ($app) {
 			return new VCSService($app);
 		};
-
+		
 		$this->app->register(new \Silex\Provider\TwigServiceProvider(),
 							 ['twig.path' => APP_RESOURCE_DIR.DIRECTORY_SEPARATOR.'templates',
 							  'twig.options' => ['cache' => APP_ETC_DIR.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'tmpl',
 												 'debug' => true]
 							 ]);
+		
+		
+		$this->app->register(new Silex\Provider\HttpFragmentServiceProvider());
 
-		$this->app->register(new \Silex\Provider\HttpFragmentServiceProvider());
 	}
 
 	public function init()
