@@ -29,10 +29,8 @@ if(!APPROOT_PATH || !WEBROOT_PATH)
 {
 	throw new RuntimeException('Please ensure that you have the correct path to '.$PATH_TO_APPROOT.' and that related permissions have been granted.');
 }
-//require_once APPROOT_PATH.'/Bootloader.php';
 
-require_once __DIR__.'/../src/Common.php';
-//\Bootloader::getDependency('wacc.webprocessor')->run();
+require_once APPROOT_PATH.DIRECTORY_SEPARATOR.'Common.php';
 
 $app=new NxSys\Applications\Atlas\Application(new Silex\Application);
 $app->init();
