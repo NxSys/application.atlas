@@ -46,7 +46,6 @@ class Application
 		$this->app=$oWebApp;
 		//if debug
 		$this->app['debug']=1;
-
 		//$this->oWebApp['monolog']->debug('Testing the Monolog logging.');
 		//self::$aRegistry['svc']['log']=$this->oWebApp['monolog'];
 	}
@@ -85,6 +84,8 @@ class Application
 							  'twig.options' => ['cache' => APP_ETC_DIR.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'tmpl',
 												 'debug' => true]
 							 ]);
+
+		$this->app->register(new \Silex\Provider\HttpFragmentServiceProvider());
 	}
 
 	public function init()
