@@ -22,15 +22,14 @@ namespace NxSys\Applications\Atlas;
 
 
 //Vendor Namespaces
-use Silex;
 use Silex\Application as WebApp;
 use Symfony\Component\HttpFoundation as SfHttp;
 use Igorw\Silex\ConfigServiceProvider;
+
 //Service Namespaces
 use NxSys\Applications\Atlas\Services\Search as SearchService;
 use NxSys\Applications\Atlas\Services\VCS as VCSService;
 use Elastica\Client as SearchClient;
-
 
 
 class Application
@@ -53,14 +52,35 @@ class Application
 
     public function routes()
     {
-		$this->app->mount('noroute', new \Silex\ControllerCollection(new \Silex\Route));
-		$this->app->match('ping', function(){ return APP_IDENT.'-'.APP_VERSION;});
 		$this->app->match('', 		'NxSys\Applications\Atlas\Web\Controllers\Home::index');
-		$this->app->match('setup', 'NxSys\Applications\Atlas\Web\Controllers\Home::index');
-		$this->app->match('editor', 'NxSys\Applications\Atlas\Web\Controllers\Components\Editor::view');
-		//$this->app->match('/list', [new Web\Controlers\Home, 'index']);
-		$this->app->match('examine', 'NxSys\Applications\Atlas\Web\Controllers\Examine::index');
-		//$this->app->match('/search', [new Web\Controlers\Search, 'index']);
+
+		$this->app->match('', 			'NxSys\Applications\Atlas\Web\Controllers\Home::forwardToDefault');
+		$this->app->match('welcome',	'NxSys\Applications\Atlas\Web\Controllers\Home::welcome');
+
+		$this->app->match('find', 			'NxSys\Applications\Atlas\Web\Controllers\Find::index');
+		$this->app->match('go', 			'NxSys\Applications\Atlas\Web\Controllers\Find::goToShortcut');
+
+		$this->app->match('code', 			'NxSys\Applications\Atlas\Web\Controllers\Code::browse');
+		$this->app->match('code\log', 		'NxSys\Applications\Atlas\Web\Controllers\Code::displayLog');
+		$this->app->match('code\diff', 		'NxSys\Applications\Atlas\Web\Controllers\Code::diff');
+
+		$this->app->match('artifacts', 		'NxSys\Applications\Atlas\Web\Controllers\Artifacts::list');
+		$this->app->mount('artifacts\get',
+						  new \Silex\ControllerCollection(new \Silex\Route));
+
+		$this->app->match('docs', 			'NxSys\Applications\Atlas\Web\Controllers\Docs::index');
+		$this->app->match('docs\api', 		'NxSys\Applications\Atlas\Web\Controllers\Docs::api');
+		$this->app->match('docs\man', 		'NxSys\Applications\Atlas\Web\Controllers\Docs::man');
+
+		$this->app->match('api.description',  'NxSys\Applications\Atlas\Web\Controllers\Api::getDescription');
+		$this->app->match('api', 			'NxSys\Applications\Atlas\Web\Controllers\Api::index');
+		// $this->app->match('api\docs', 		'NxSys\Applications\Atlas\Web\Controllers\Api::index');
+		// $this->app->match('api\code', 		'NxSys\Applications\Atlas\Web\Controllers\Api::index');
+		// $this->app->match('api\finder', 		'NxSys\Applications\Atlas\Web\Controllers\Api::index');
+		// $this->app->match('api\artifacts', 		'NxSys\Applications\Atlas\Web\Controllers\Api::index');
+
+		$this->app->match('res',  'NxSys\Applications\Atlas\Web\Controllers\Home::getResource');
+		$this->app->match('sys/ping', function(){ return APP_IDENT.'-'.APP_VERSION;});
 		$this->app->match('sys/bel-views', 'NxSys\Applications\Atlas\Web\Controlers\BEL::getWebViews');
 		$this->app->match('sys/bel-data-tree', 'NxSys\Applications\Atlas\Web\Controlers\BEL::getDataForTree');
     }
@@ -80,15 +100,13 @@ class Application
 		$this->app['atlas.vcs'] = function ($app) {
 			return new VCSService($app);
 		};
-		
+
+		$this->app->register(new \Silex\Provider\HttpFragmentServiceProvider());
 		$this->app->register(new \Silex\Provider\TwigServiceProvider(),
 							 ['twig.path' => APP_RESOURCE_DIR.DIRECTORY_SEPARATOR.'templates',
 							  'twig.options' => ['cache' => APP_ETC_DIR.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR.'tmpl',
 												 'debug' => true]
 							 ]);
-		
-		
-		$this->app->register(new Silex\Provider\HttpFragmentServiceProvider());
 
 	}
 
@@ -126,7 +144,6 @@ class Application
 		{
 			case 'conf':
 			{
-
 				return self::$aRegistry['conf'][$sName];
 			}
 			case 'service':

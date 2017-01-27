@@ -17,20 +17,20 @@ class Editor
         if(!count($oVCSUtilSvc->repos))
         {
             //@todo
-            throw new Exception;
+            throw new RuntimeException;
         }
         $oVCSUtilSvc->cacheDir('Atlas');
 
         $oCurrRepo=$oVCSUtilSvc->repos['Atlas'];
         $oFileNode=$oCurrRepo->files->find('/trunk/src/NxSys/Applications/Atlas/Application.php');
-        
-        $aPage=[];
+
         $sFileContents = $oFileNode->getContents();
         $sEscapedContents = str_replace("\\", "\\\\", $sFileContents); //Required to escape JS escaping in front-end.
-        
+
+        $aPage=[];
         $aPage['file_contents']=$sEscapedContents;
         $aPage['file_ext']=$oFileNode->getFileExtenstion();
-        
+
         $sContent=$oApp['twig']->render('components\Editor.view.twig.html', $aPage);
         return new sfHttp\Response($sContent);
     }
