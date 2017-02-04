@@ -1,4 +1,5 @@
 * text=auto !eol
+/.phpdbginit -text
 /AGPL.txt -text
 /LICENSE.txt -text
 /ReadMe.txt -text
