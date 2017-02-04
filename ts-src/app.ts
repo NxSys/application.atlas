@@ -13,38 +13,53 @@ namespace OnxAtlas
 	export class App
 	{
 		//public EventMgr;
+		public sTreeMapSelector: string;
+		public oTreeMapInitOptions: TreeMapOptions;
+		public oTreeMapCtrl: Object;
 		public oEditCtrl: Object;
 		public constructor()
 		{
 		}
 		public onPageLoadBegin()
-		{	
+		{
 			//@todo: init atv dom tree
-			console.log('onPageLoadBegin');
+			console.log('onPageLoadBegin_in');
+			console.log('onPageLoadBegin_out');
 		}
 		public onPageLoadEnd()
 		{
-			console.log('onPageLoadEnd');			
+			console.log('onPageLoadEnd_in');
+
+			this.useTreemap();
+
+			console.log('onPageLoadEnd_out');
 		}
+
 		//--- Appland
-		public setupCodemirror(oTextAreaElm: HTMLTextAreaElement, sCodeFileTypeExt: string,
-							   oConfig: any)
+		public setTreeMapSelector(sTreeMapSelector: string): void
 		{
-			let x=SystemJS.import('vendor/codemirror/lib/codemirror.js');			
-			console.log('Loading Ext '+sCodeFileTypeExt);						
-			var oSuggestedMode: any;
-			oSuggestedMode=CodeMirror.findModeByExtension(sCodeFileTypeExt);
-			var y=SystemJS.import("vendor/codemirror/mode/"
-							+oSuggestedMode.mode+"/"
-							+oSuggestedMode.mode+".js");			
-			oConfig.mode=oSuggestedMode.mode;
-			this.oEditCtrl=CodeMirror.fromTextArea(oTextAreaElm, oConfig);
-			// CodeMirror.autoLoadMode(this.oEditCtrl, oSuggestedMode);
-			console.log(x);
-			console.log(y);
-			console.log(oSuggestedMode);
-			console.log(this.oEditCtrl);
+			this.sTreeMapSelector=sTreeMapSelector;
+			return;
+		}
+		public setTreeMapInitOptions(oTMOpts: TreeMapOptions): void
+		{
+			this.oTreeMapInitOptions=oTMOpts;
+			return;
+		}
+		public loadNodeDataForTreeMap(){}
+		public useTreemap()
+		{
+			$(this.sTreeMapSelector).treemap(this.oTreeMapInitOptions);
+			return;
 		}
 	}
 }
-
+interface JQuery
+{
+	treemap(Options: TreeMapOptions): any;
+}
+interface TreeMapOptions
+{
+	dimensions: any[];
+	nodeData: any[];
+}

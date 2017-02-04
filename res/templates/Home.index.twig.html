@@ -5,8 +5,64 @@
 
 {% block treemap %}
 <div class="columns">
-	TREEMAP!
+	<div class="ctrlTreeMap">TREEMAP</div>
 </div>
+<script type="text/javascript">
+var oTmOpts={
+	dimensions: [1200,400]
+};
+oTmOpts.nodeData={
+	"id": "root",
+	"children": [
+		{
+			"id" : "node1",
+			"size" : [0.5],
+			"color": [0.5],
+			"children" : [
+				{
+					"id" : "node1a",
+					"size" : [0.75],
+					"color" : [0.1]
+				},
+				{
+					"id" : "node1b",
+					"size" : [0.2],
+					"color" : [0.3]
+				},
+				{
+					"id" : "node1c",
+					"size" : [0.05],
+					"color" : [0.5]
+				}
+			]
+		},
+		{
+			"id" : "node2",
+			"size" : [0.3],
+			"color": [0.7],
+			"children" : [
+				{
+					"id" : "node2a",
+					"size" : [0.45],
+					"color" : [0.1]
+				},
+				{
+					"id" : "node2b",
+					"size" : [0.55],
+					"color" : [0.3]
+				}
+			]
+		},
+		{
+			"id" : "node3",
+			"size" : [0.2],
+			"color": [0.9]
+		},
+	]
+};
+App.setTreeMapSelector('.ctrlTreeMap');
+App.setTreeMapInitOptions(oTmOpts);
+</script>
 {% endblock %}
 
 {% block fileview %}

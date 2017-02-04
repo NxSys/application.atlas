@@ -4,10 +4,23 @@
 /// <reference path="../../../ts-src/types/codemirror/codemirror.d.ts" />
 declare namespace OnxAtlas {
     class App {
+        sTreeMapSelector: string;
+        oTreeMapInitOptions: TreeMapOptions;
+        oTreeMapCtrl: Object;
         oEditCtrl: Object;
         constructor();
         onPageLoadBegin(): void;
         onPageLoadEnd(): void;
-        setupCodemirror(oTextAreaElm: HTMLTextAreaElement, sCodeFileTypeExt: string, oConfig: any): void;
+        setTreeMapSelector(sTreeMapSelector: string): void;
+        setTreeMapInitOptions(oTMOpts: TreeMapOptions): void;
+        loadNodeDataForTreeMap(): void;
+        useTreemap(): void;
     }
+}
+interface JQuery {
+    treemap(Options: TreeMapOptions): any;
+}
+interface TreeMapOptions {
+    dimensions: any[];
+    nodeData: any[];
 }

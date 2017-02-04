@@ -86,7 +86,6 @@ webroot/js/vendor/codemirror/package.json -text
 webroot/js/vendor/foundation.js -text
 webroot/js/vendor/foundation.min.js -text
 webroot/js/vendor/jquery-2.2.3.min.js -text
-webroot/js/vendor/jquery.js -text
 webroot/js/vendor/vs/base/worker/workerMain.js -text
 webroot/js/vendor/vs/basic-languages/src/bat.js -text
 webroot/js/vendor/vs/basic-languages/src/coffee.js -text
