@@ -5,15 +5,16 @@ namespace NxSys\Applications\Atlas\Web\Controllers;
 
 use Silex\Application as WebApp;
 
-use Symfony\Component\HttpFoundation as SfHttp;
+use Symfony\Component\HttpFoundation as sfHttp;
+use Symfony\Component\HttpKernel as sfHttpKern;
 
 class Home
 {
 
 	#code
-	public function index(WebApp $oApp)
+	public function welcome(WebApp $oApp)
 	{
-		$sContent=$oApp['twig']->render('Home.index.twig.html', []);
+		$sContent=$oApp['twig']->render('AtlasWelcome.twig.html', []);
 		return new sfHttp\Response($sContent);
 	}
 
@@ -30,7 +31,7 @@ class Home
 		{
 			$subRequest->setSession($oReq->getSession());
 		}
-		$oResponse = $app->handle($subRequest, sfHttp\HttpKernelInterface::SUB_REQUEST);
+		$oResponse = $oApp->handle($subRequest, sfHttpKern\HttpKernelInterface::SUB_REQUEST);
 
 		return $oResponse;
 	}

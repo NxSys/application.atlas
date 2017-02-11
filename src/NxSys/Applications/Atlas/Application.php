@@ -52,8 +52,7 @@ class Application
 
     public function routes()
     {
-		$this->app->match('', 		'NxSys\Applications\Atlas\Web\Controllers\Home::index');
-
+		
 		$this->app->match('', 			'NxSys\Applications\Atlas\Web\Controllers\Home::forwardToDefault');
 		$this->app->match('welcome',	'NxSys\Applications\Atlas\Web\Controllers\Home::welcome');
 
@@ -81,8 +80,8 @@ class Application
 
 		$this->app->match('res',  'NxSys\Applications\Atlas\Web\Controllers\Home::getResource');
 		$this->app->match('sys/ping', function(){ return APP_IDENT.'-'.APP_VERSION;});
-		$this->app->match('sys/bel-views', 'NxSys\Applications\Atlas\Web\Controlers\BEL::getWebViews');
-		$this->app->match('sys/bel-data-tree', 'NxSys\Applications\Atlas\Web\Controlers\BEL::getDataForTree');
+		$this->app->match('sys/bel-views', 'NxSys\Applications\Atlas\Web\Controllers\BEL::getWebViews');
+		$this->app->match('sys/bel-data-tree', 'NxSys\Applications\Atlas\Web\Controllers\BEL::getDataForTree');
     }
 
 	public function services()
