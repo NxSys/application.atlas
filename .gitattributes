@@ -75,6 +75,9 @@ webroot/css/app.css -text
 webroot/css/foundation.css -text
 webroot/css/foundation.min.css -text
 webroot/humans.txt -text
+webroot/imgs/atlaslogo-128.png -text
+webroot/imgs/atlaslogo.png -text
+webroot/imgs/favicon.ico -text
 webroot/index.html -text
 webroot/index.php -text
 webroot/js/types/app.d.ts -text
