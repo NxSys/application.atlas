@@ -61,7 +61,7 @@ tests/functional/MyTest.php -text
 tests/functional/_bootstrap.php -text
 tests/unit.suite.yml -text
 tests/unit/_bootstrap.php -text
-ts-src/app.ts -text svneol=unset#application/octet-stream
+ts-src/OnxAtlas-App.ts -text svneol=unset#application/octet-stream
 ts-src/tsconfig.json -text
 ts-src/types/codemirror/codemirror-runmode.d.ts -text
 ts-src/types/codemirror/codemirror-showhint.d.ts -text

@@ -7,7 +7,7 @@
 <div class="columns small-12">
 	<div class="row">
 		<div class="columns small-12">
-			<div class="ctrlTreeMap">ctrlTreeMap</div>
+			<div class="ctrlExplorationMap">ctrlExplorationMap</div>
 		</div>
 	</div>
 	<div class="row">
@@ -75,8 +75,9 @@ oTmOpts.nodeData={
 		},
 	]
 };
-App.setTreeMapSelector('.ctrlTreeMap');
-App.setTreeMapInitOptions(oTmOpts);
+App.getExplorationMap().setTreeMapSelector('.ctrlExplorationMap');
+App.getExplorationMap().setTreeMapInitOptions(oTmOpts);
+App.startExplorationMap();
 </script>
 {% endblock %}
 
