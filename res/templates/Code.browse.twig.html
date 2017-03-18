@@ -23,14 +23,46 @@
 </div>
 
 <script type="text/javascript">
+
+var nextSize = 1;
+
+var switchNodeSet = function(nodeData)
+{
+	treeNodes = $('.ctrlTreeMap').treemap("option", "nodeData");
+	
+	
+	
+	console.log(treeNodes);
+	nextSize = nextSize + 0;
+	if (nextSize > 1)
+	{
+		nextSize = 0;
+	}
+}
+
+
+var mouseclickHandler = function(e,data) {
+	var nodes = data.nodes;
+	var ids = data.ids;
+	
+	
+};	
+	
+	
 var oTmOpts={
-	dimensions: [1200,250]
+	dimensions: [1200,250],
+	nodeBorderWidth: 1,
+	animationEnabled: true,
+    animationDurationMs: 400,
+    animationEasing: TreemapUtils.Easing["ease-in-out"],
+	labelsEnabled: true
 };
+
 oTmOpts.nodeData={
 	"id": "root",
 	"children": [
 		{
-			"id" : "node1",
+			"id" : "root/node1",
 			"size" : [0.5],
 			"color": [0.5],
 			"children" : [
@@ -71,13 +103,44 @@ oTmOpts.nodeData={
 		{
 			"id" : "node3",
 			"size" : [0.2],
-			"color": [0.9]
+			"color": [0.9],
+			"children" : [
+				{
+					"id" : "node3a",
+					"size" : [0.45],
+					"color" : [0.1],
+					"children" : [
+						{
+							"id" : "node3a1",
+							"size" : [0.75],
+							"color" : [0.1]
+						},
+						{
+							"id" : "node3a2",
+							"size" : [0.2],
+							"color" : [0.3]
+						},
+						{
+							"id" : "node3a3",
+							"size" : [0.05],
+							"color" : [0.5]
+						}
+					]
+				},
+				{
+					"id" : "node3b",
+					"size" : [0.55],
+					"color" : [0.3]
+				}
+			]
 		},
 	]
 };
 App.getExplorationMap().setTreeMapSelector('.ctrlExplorationMap');
 App.getExplorationMap().setTreeMapInitOptions(oTmOpts);
 App.startExplorationMap();
+
+$('.ctrlTreeMap').bind('treemapclick',mouseclickHandler);
 </script>
 {% endblock %}
 

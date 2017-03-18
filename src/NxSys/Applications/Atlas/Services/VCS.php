@@ -22,7 +22,7 @@ class VCS
 	public function runTest($sRepo)
 	{
 		$this->cacheDir($sRepo, "/", "20");
-		var_dump($this->repos[$sRepo]->files->find('/trunk/AGPL.txt')->getContents());
+		var_dump($this->repos[$sRepo]->files->find('/trunk/LICENSE.txt')->getContents());
 		//var_dump($this->repos[$sRepo]);
 	}
 
@@ -42,6 +42,7 @@ class VCS
 								'author' => $sAuthor,
 								'date' => $sDate,
 								'paths' => []];
+			
 
 			/**
 			 * Not sure that we need a full list of modified paths yet, commenting this out for performance purposes.
@@ -55,6 +56,7 @@ class VCS
 		$files = $r->list->entry;
 		foreach ($files as $file)
 		{
+			//@TODO: Find a simple way to get file size.
 			$sFilePath = '/' . (string) $file->name;
 			$sKind = $file['kind'];
 			$sRevision = $file->commit[0]['revision'];

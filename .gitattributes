@@ -37,6 +37,8 @@ src/NxSys/Applications/Atlas/Services/VCSUtil/Repository.php -text
 src/NxSys/Applications/Atlas/Services/VCSUtil/SVN/CommandParser.php -text
 src/NxSys/Applications/Atlas/Services/VCSUtil/SVN/SVNLibrary.php -text
 src/NxSys/Applications/Atlas/Services/VCSUtil/VCSExceptionType.php -text
+src/NxSys/Applications/Atlas/Services/XMap.php -text
+src/NxSys/Applications/Atlas/Services/XMapUtil/XMapNode.php -text
 src/NxSys/Applications/Atlas/Web/Controllers/BEL.php -text
 src/NxSys/Applications/Atlas/Web/Controllers/Code.php -text
 src/NxSys/Applications/Atlas/Web/Controllers/Components/Editor.php -text
