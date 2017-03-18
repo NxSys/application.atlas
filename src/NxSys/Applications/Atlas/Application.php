@@ -52,7 +52,7 @@ class Application
 
     public function routes()
     {
-		
+
 		$this->app->match('', 			'NxSys\Applications\Atlas\Web\Controllers\Home::forwardToDefault');
 		$this->app->match('welcome',	'NxSys\Applications\Atlas\Web\Controllers\Home::welcome');
 
@@ -60,23 +60,24 @@ class Application
 		$this->app->match('go', 			'NxSys\Applications\Atlas\Web\Controllers\Find::goToShortcut');
 
 		$this->app->match('code', 			'NxSys\Applications\Atlas\Web\Controllers\Code::browse');
-		$this->app->match('code\log', 		'NxSys\Applications\Atlas\Web\Controllers\Code::displayLog');
-		$this->app->match('code\diff', 		'NxSys\Applications\Atlas\Web\Controllers\Code::diff');
+		$this->app->match('code/log', 		'NxSys\Applications\Atlas\Web\Controllers\Code::displayLog');
+		$this->app->match('code/diff', 		'NxSys\Applications\Atlas\Web\Controllers\Code::diff');
+		$this->app->match('api/code', 		'NxSys\Applications\Atlas\Web\Controllers\Code::api');
+		$this->app->match('api/code/getNodeData', 	'NxSys\Applications\Atlas\Web\Controllers\Code::apiGetNodeData');
 
 		$this->app->match('artifacts', 		'NxSys\Applications\Atlas\Web\Controllers\Artifacts::list');
-		$this->app->mount('artifacts\get',
+		$this->app->mount('artifacts/get',
 						  new \Silex\ControllerCollection(new \Silex\Route));
 
 		$this->app->match('docs', 			'NxSys\Applications\Atlas\Web\Controllers\Docs::index');
-		$this->app->match('docs\api', 		'NxSys\Applications\Atlas\Web\Controllers\Docs::api');
-		$this->app->match('docs\man', 		'NxSys\Applications\Atlas\Web\Controllers\Docs::man');
+		$this->app->match('docs/api', 		'NxSys\Applications\Atlas\Web\Controllers\Docs::api');
+		$this->app->match('docs/man', 		'NxSys\Applications\Atlas\Web\Controllers\Docs::man');
 
 		$this->app->match('api.description',  'NxSys\Applications\Atlas\Web\Controllers\Api::getDescription');
 		$this->app->match('api', 			'NxSys\Applications\Atlas\Web\Controllers\Api::index');
-		// $this->app->match('api\docs', 		'NxSys\Applications\Atlas\Web\Controllers\Api::index');
-		// $this->app->match('api\code', 		'NxSys\Applications\Atlas\Web\Controllers\Api::index');
-		// $this->app->match('api\finder', 		'NxSys\Applications\Atlas\Web\Controllers\Api::index');
-		// $this->app->match('api\artifacts', 		'NxSys\Applications\Atlas\Web\Controllers\Api::index');
+		// $this->app->match('api/docs', 		'NxSys\Applications\Atlas\Web\Controllers\Api::index');
+		// $this->app->match('api/finder', 		'NxSys\Applications\Atlas\Web\Controllers\Api::index');
+		// $this->app->match('api/artifacts', 		'NxSys\Applications\Atlas\Web\Controllers\Api::index');
 
 		$this->app->match('res',  'NxSys\Applications\Atlas\Web\Controllers\Home::getResource');
 		$this->app->match('sys/ping', function(){ return APP_IDENT.'-'.APP_VERSION;});
