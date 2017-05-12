@@ -38,15 +38,44 @@ var switchNodeSet = function(nodeData)
 	{
 		nextSize = 0;
 	}
-}
+};
 
 
 var mouseclickHandler = function(e,data) {
+
 	var nodes = data.nodes;
 	var ids = data.ids;
 	
+	console.log(nodes);
+	console.log(ids);
 	
-};	
+};
+
+var myInnerNodeHeaderLabeller = function(ctx,rect,rgb,id) {
+	ctx.rect(rect[0],rect[1],rect[2],rect[3]);
+	ctx.clip();
+	ctx.fillStyle = '#555';
+	ctx.font = '0.625em Verdana, Geneva, sans-serif';
+	
+	labelArr = id.split("/");
+	label = labelArr[labelArr.length-1];
+	
+	ctx.fillText(label,rect[0],rect[1]+10);
+};
+var myLeafNodeBodyLabeller = function(ctx,rect,rgb,id) {
+	ctx.rect(rect[0],rect[1],rect[2],rect[3]);
+	ctx.clip();
+	if (TreemapUtils.avgRgb(rgb) <= 200) {
+		ctx.fillStyle = '#fff';
+	} else {
+		ctx.fillStyle = '#888';
+	}
+	ctx.font = '0.625em Verdana, Geneva, sans-serif';
+	
+	labelArr = id.split("/");
+	label = labelArr[labelArr.length-1];
+	ctx.fillText(label,rect[0],rect[1]+10);
+};
 	
 	
 var oTmOpts={
@@ -67,68 +96,68 @@ oTmOpts.nodeData={
 			"color": [0.5],
 			"children" : [
 				{
-					"id" : "node1a",
+					"id" : "root/node1/a",
 					"size" : [0.75],
 					"color" : [0.1]
 				},
 				{
-					"id" : "node1b",
+					"id" : "root/node1/b",
 					"size" : [0.2],
 					"color" : [0.3]
 				},
 				{
-					"id" : "node1c",
+					"id" : "root/node1/c",
 					"size" : [0.05],
 					"color" : [0.5]
 				}
 			]
 		},
 		{
-			"id" : "node2",
+			"id" : "root/node2",
 			"size" : [0.3],
 			"color": [0.7],
 			"children" : [
 				{
-					"id" : "node2a",
+					"id" : "root/node2/a",
 					"size" : [0.45],
 					"color" : [0.1]
 				},
 				{
-					"id" : "node2b",
+					"id" : "root/node2/b",
 					"size" : [0.55],
 					"color" : [0.3]
 				}
 			]
 		},
 		{
-			"id" : "node3",
+			"id" : "root/node3",
 			"size" : [0.2],
 			"color": [0.9],
 			"children" : [
 				{
-					"id" : "node3a",
+					"id" : "root/node3/a",
 					"size" : [0.45],
 					"color" : [0.1],
 					"children" : [
 						{
-							"id" : "node3a1",
+							"id" : "root/node3/a/1",
 							"size" : [0.75],
 							"color" : [0.1]
 						},
 						{
-							"id" : "node3a2",
+							"id" : "root/node3/a/2",
 							"size" : [0.2],
 							"color" : [0.3]
 						},
 						{
-							"id" : "node3a3",
+							"id" : "root/node3/a/3",
 							"size" : [0.05],
 							"color" : [0.5]
 						}
 					]
 				},
 				{
-					"id" : "node3b",
+					"id" : "root/node3/b",
 					"size" : [0.55],
 					"color" : [0.3]
 				}
@@ -136,11 +165,15 @@ oTmOpts.nodeData={
 		},
 	]
 };
+
+oTmOpts.innerNodeHeaderLabeller = myInnerNodeHeaderLabeller;
+oTmOpts.leafNodeBodyLabeller = myLeafNodeBodyLabeller;
+
 App.getExplorationMap().setTreeMapSelector('.ctrlExplorationMap');
 App.getExplorationMap().setTreeMapInitOptions(oTmOpts);
 App.startExplorationMap();
 
-$('.ctrlTreeMap').bind('treemapclick',mouseclickHandler);
+$('.ctrlExplorationMap').bind('treemapclick', mouseclickHandler);
 </script>
 {% endblock %}
 
