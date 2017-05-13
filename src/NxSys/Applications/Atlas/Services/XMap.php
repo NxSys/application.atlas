@@ -72,30 +72,14 @@ class XMap
 		foreach ($oCurrentNode->children as $oChild)
 		{
 			//Get current size.
-			if ($iCurrentDepth + 1 > $iMaxAbsoluteDepth)
-			{
-				//Child is greater than max depth, get recursive size.
-				$iSize = [$this->recursiveSize($oChild)];
-			}
-			else
-			{
-				$iSize = [$oChild->size];
-			}
+			$iSize = [$this->recursiveSize($oChild)];
 			
 			//Get updated size.
 			try
 			{
 				//Find the corresponding node in the new map.
 				$oMatchingNode = $oNewMap->locate($oChild->path);
-				if ($iCurrentDepth + 1 > $iMaxAbsoluteDepth)
-				{
-					//Child is greater than max depth, get recursive size.
-					$iSize[] = $this->recursiveSize($oMatchingNode);
-				}
-				else
-				{
-					$iSize[] = $oMatchingNode->size;
-				}
+				$iSize[] = $this->recursiveSize($oMatchingNode);
 			}
 			catch (\OutOfRangeException $e)
 			{
@@ -161,14 +145,7 @@ class XMap
 			catch (\OutOfRangeException $e)
 			{
 				//$oChild does not exist in old map, create and add to node data.
-				if ($iCurrentDepth + 1 > $iMaxAbsoluteDepth)
-				{
-					$iSize = $this->recursiveSize($oChild);
-				}
-				else
-				{
-					$iSize = $oChild->size;
-				}
+				$iSize = $this->recursiveSize($oChild);
 				
 				$aCurrentChild = ["id" => join('/', $oChild->path),
 									"color" => [0.5], //@TODO Get color values based on update rate.
