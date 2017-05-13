@@ -39,7 +39,8 @@ namespace OnxAtlas
 		 */
 		public static callServer(sBase: string, sMeth: string, oData: object,
 						  hSucessFunction?: (serverReturn: any) => void,
-						  hFailFunction?: (oErrXHR: object) => void, isAsync: boolean=true)
+						  hFailFunction?: (oErrXHR: object) => void,
+						  isAsync: boolean=true)
 		{
 			let sJxDomain='api';
 			let returnValue;
@@ -135,8 +136,10 @@ namespace OnxAtlas
 		{
 			// let data=App.callServer('code', 'getNodeData', {greet: 'server'}, this.logNodeData);
 			App.callServer('code', 'getNodeData', {greet: 'server'}, this.logNodeData);
-			// alert('My data\n'+data);
+			alert('My data\n');
 		}
+
+
 
 		protected logNodeData(data: any)
 		{
