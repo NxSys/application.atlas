@@ -295,7 +295,7 @@ class XMap
 		{
 			if (array_key_exists("children", $aChild))
 			{
-				$aCurrentNode["children"][$iIndex] = $this->pctSizeValues($aChild);
+				$aCurrentNode["children"][$iIndex] = $this->percenticateSizeValues($aChild);
 			}
 		}
 		
