@@ -4,6 +4,7 @@
 /LICENSE.txt -text
 /ReadMe.txt -text
 /box.json -text svneol=unset#application/octet-stream
+/build.properties -text
 /build.xml -text
 /codeception.yml -text
 etc/atlas.db3 -text
