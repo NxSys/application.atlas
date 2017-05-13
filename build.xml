@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ===========================================================================
+# build.xml
+# $Id$
+#
+# Description:
+#
+# Meta Tags:
+# @package Atlas
+# @subpackage Meta
+# @author Chris R. Feamster <cfeamster@nxsysts.com>
+# @author $LastChangedBy$
+#
+# @version $Revision$
+# @copyright (c) 2017 F2 Developments, Inc. All rights reserved.
+============================================================================ -->
+<project name="Atlas" default="build">
+	<property file="build.properties" />
+	<if>
+		<not>
+			<or>
+				<available file="box.json" />
+				<available file="masthead.txt" />
+				<available file="PharMain.php" />
+				<available file="build.properties" />
+			</or>
+		</not>
+		<then>
+			<fail message="One of build.properties, box.json, PharMain.php or masthead.txt is missing!"/>
+		</then>
+	</if>
+	<tstamp />
+	<tstamp>
+		<format property="YEAR" pattern="%Y"/>
+	</tstamp>
+
+	<!-- removed "generate" target for pre constructed prj  -->
+
+	<!-- ============================================  -->
+	<!-- Target: prepare                               -->
+	<!-- ============================================  -->
+	<target name="prepare">
+		<!--
+		<echo msg="Making directory ./build" />
+		<mkdir dir="./build" />
+		<echo msg="Making directory ./docs" />
+		<mkdir dir="./build" />
+		-->
+
+		<!--Needs "sed"-->
+		<exec command='svn info | sed -n "/URL:/s/.*\///p"'
+			  outputProperty='svnParentDir'/>
+		<reflexive>
+			<fileset dir="."
+				includes="box.json
+						  masthead.txt
+						  src\Common.php"/>
+			<filterchain>
+				<replacetokens begintoken="##" endtoken="##">
+					<token key="prj.identkey" value="${prj.identkey}" />
+					<token key="prj.name" value="${prj.name}" />
+					<token key="prj.ver" value="##${prj.ver}##" />
+					<token key="year" value="${YEAR}" />
+				</replacetokens>
+			</filterchain>
+		</reflexive>
+	</target>
+
+	<target name="styles">
+		<echo msg="Building SCSS Styles..." />
+		<!--<exec command="vendor\bin\pscss -f=expanded &lt; src-webui\styles\AetherStyle.scss" passthru="true" checkreturn="true" />-->
+		<exec command="sassc --style expanded --line-comments --sourcemap ${styles.srcfile} ${styles.destfile}" passthru="true" checkreturn="true" />
+	</target>
+
+	<target name="uascript">
+		<echo msg="Building TypeScipt Sources..." />
+		<exec command="tsc --project ${uascript.srcpath}" checkreturn="true" passthru="true" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: (DEFAULT) build                       -->
+	<!-- ============================================  -->
+	<target name="build" depends="prepare, styles, uascript">
+		<echo msg="Building Phar..." />
+		<mkdir dir="build" />
+		<!--<php expression="ini_set('phar.readonly', 'Off');">-->
+		<!--<php expression="ini_get('phar.readonly');" returnProperty="PharDisabled"/>-->
+		<exec command="box build -v" passthru="true" />
+		<copy file="${prj.identkey}.phar" todir="build" />
+		<copy file="${prj.identkey}.phar.pubkey" todir="build" />
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: build-docs                            -->
+	<!-- ============================================  -->
+	<target name="docs" depends="prepare">
+		<echo msg="Creating Docs\API ..." />
+		<apigen source="src,vendor" destination="docs/api"
+				title="${prj.name} (prj.ver+${svnParentDir}) API Docs"
+				sourcecode="no" exclude="*/tests/*,*/Tests/*,*/Self-Test/*"
+				debug="true"/>
+		<!-- @todo gen sphinx docs if applicable -->
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: prepare-dist                          -->
+	<!-- ============================================  -->
+	<target name="prepare-dist" depends="docs, build">
+		<version releasetype="Bugfix" file="version.txt" property="prj.ver"/>
+	</target>
+
+	<!-- ============================================  -->
+	<!-- Target: dist-phar (Phar Only)                 -->
+	<!-- ============================================  -->
+	<target name="dist-phar" depends="prepare-dist">
+		<echo msg="Creating archive..." />
+		<zip destfile="./build/${prj.identkey}-phar_${prj.ver}+${DSTAMP}${TSTAMP}.zip">
+			<fileset dir=".">
+				<include name="${prj.identkey}.phar" />
+				<include name="${prj.identkey}.phar.pubkey" />
+			</fileset>
+		</zip>
+		<echo msg="Files copied and compressed in build directory OK!" />
+	</target>
+	<!-- ============================================  -->
+	<!-- Target: dist-full (FULL dir structure)        -->
+	<!-- ============================================  -->
+	<target name="dist-full" depends="prepare-dist">
+		<echo msg="Creating archive..." />
+		<zip destfile="./build/${prj.identkey}-full_${prj.ver}+${DSTAMP}${TSTAMP}.zip">
+			<fileset dir=".">
+				<include name="${prj.identkey}.phar" />
+				<include name="${prj.identkey}.phar.pubkey" />
+				<include name="${prj.identkey}.conf" />
+				<include name="libs/" />
+				<include name="etc/" />
+				<include name="docs/" />
+			</fileset>
+		</zip>
+		<echo msg="Files copied and compressed in build directory OK!" />
+	</target>
+</project>
