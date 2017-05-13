@@ -10,7 +10,6 @@ use Symfony\Component\HttpKernel as sfHttpKern;
 
 class Home
 {
-
 	#code
 	public function welcome(WebApp $oApp)
 	{
@@ -35,5 +34,4 @@ class Home
 
 		return $oResponse;
 	}
-
 }

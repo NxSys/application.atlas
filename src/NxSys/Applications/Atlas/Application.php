@@ -24,6 +24,7 @@ namespace NxSys\Applications\Atlas;
 //Vendor Namespaces
 use Silex\Application as WebApp;
 use Symfony\Component\HttpFoundation as SfHttp;
+use Silex\ControllerCollection;
 use Igorw\Silex\ConfigServiceProvider;
 
 //Service Namespaces
@@ -54,31 +55,41 @@ class Application
     public function routes()
     {
 
+		// "deep" routes and atlas "apps"
+		//these will be globally parameterized
+		/** @var ControllerCollection **/
+		$oAtlasCtrlrs=$this->app['controllers_factory'];
+		$oAtlasCtrlrs->match('code', 			'NxSys\Applications\Atlas\Web\Controllers\Code::browse');
+		$oAtlasCtrlrs->match('code/log', 		'NxSys\Applications\Atlas\Web\Controllers\Code::displayLog');
+		$oAtlasCtrlrs->match('code/diff', 		'NxSys\Applications\Atlas\Web\Controllers\Code::diff');
+		$oAtlasCtrlrs->match('api/code', 		'NxSys\Applications\Atlas\Web\Controllers\Code::api');
+		$oAtlasCtrlrs->match('api/code/getNodeData', 	'NxSys\Applications\Atlas\Web\Controllers\Code::apiGetNodeData');
+
+		$oAtlasCtrlrs->match('artifacts', 		'NxSys\Applications\Atlas\Web\Controllers\Artifacts::list');
+		$oAtlasCtrlrs->mount('artifacts/get',
+						  new \Silex\ControllerCollection(new \Silex\Route));
+
+		$oAtlasCtrlrs->match('docs', 			'NxSys\Applications\Atlas\Web\Controllers\Docs::index');
+		$oAtlasCtrlrs->match('docs/api', 		'NxSys\Applications\Atlas\Web\Controllers\Docs::api');
+		$oAtlasCtrlrs->match('docs/man', 		'NxSys\Applications\Atlas\Web\Controllers\Docs::man');
+
+		$oAtlasCtrlrs->match('api.description',  'NxSys\Applications\Atlas\Web\Controllers\Api::getDescription');
+		$oAtlasCtrlrs->match('api', 			'NxSys\Applications\Atlas\Web\Controllers\Api::index');
+		// $oAtlasCtrlrs->match('api/docs', 		'NxSys\Applications\Atlas\Web\Controllers\Api::index');
+		// $oAtlasCtrlrs->match('api/finder', 		'NxSys\Applications\Atlas\Web\Controllers\Api::index');
+		// $oAtlasCtrlrs->match('api/artifacts', 		'NxSys\Applications\Atlas\Web\Controllers\Api::index');
+
+
+		//global, 'base app' routes
 		$this->app->match('', 			'NxSys\Applications\Atlas\Web\Controllers\Home::forwardToDefault');
 		$this->app->match('welcome',	'NxSys\Applications\Atlas\Web\Controllers\Home::welcome');
 
-		$this->app->match('find', 			'NxSys\Applications\Atlas\Web\Controllers\Find::index');
-		$this->app->match('go', 			'NxSys\Applications\Atlas\Web\Controllers\Find::goToShortcut');
+		$this->app->match('find', 		'NxSys\Applications\Atlas\Web\Controllers\Find::index');
+		$this->app->match('go', 		'NxSys\Applications\Atlas\Web\Controllers\Find::goToShortcut');
 
-		$this->app->match('code', 			'NxSys\Applications\Atlas\Web\Controllers\Code::browse');
-		$this->app->match('code/log', 		'NxSys\Applications\Atlas\Web\Controllers\Code::displayLog');
-		$this->app->match('code/diff', 		'NxSys\Applications\Atlas\Web\Controllers\Code::diff');
-		$this->app->match('api/code', 		'NxSys\Applications\Atlas\Web\Controllers\Code::api');
-		$this->app->match('api/code/getNodeData', 	'NxSys\Applications\Atlas\Web\Controllers\Code::apiGetNodeData');
-
-		$this->app->match('artifacts', 		'NxSys\Applications\Atlas\Web\Controllers\Artifacts::list');
-		$this->app->mount('artifacts/get',
-						  new \Silex\ControllerCollection(new \Silex\Route));
-
-		$this->app->match('docs', 			'NxSys\Applications\Atlas\Web\Controllers\Docs::index');
-		$this->app->match('docs/api', 		'NxSys\Applications\Atlas\Web\Controllers\Docs::api');
-		$this->app->match('docs/man', 		'NxSys\Applications\Atlas\Web\Controllers\Docs::man');
-
-		$this->app->match('api.description',  'NxSys\Applications\Atlas\Web\Controllers\Api::getDescription');
-		$this->app->match('api', 			'NxSys\Applications\Atlas\Web\Controllers\Api::index');
-		// $this->app->match('api/docs', 		'NxSys\Applications\Atlas\Web\Controllers\Api::index');
-		// $this->app->match('api/finder', 		'NxSys\Applications\Atlas\Web\Controllers\Api::index');
-		// $this->app->match('api/artifacts', 		'NxSys\Applications\Atlas\Web\Controllers\Api::index');
+		//lets parameterize the atlas "app" routes
+		$this->app->mount('{sProjectId}/{sTargetBase}@{sRevId}/{sTargetPath}', $oAtlasCtrlrs);
+		$oAtlasCtrlrs->assert('sTargetPath', '.+');
 
 		$this->app->match('res',  'NxSys\Applications\Atlas\Web\Controllers\Home::getResource');
 		$this->app->match('sys/ping', function(){ return APP_IDENT.'-'.APP_VERSION;});
@@ -128,6 +139,7 @@ class Application
 		#we're using JiT routing, maybe?
 		$this->routes();
 		$this->services();
+		// $this->app['controllers']
 		$this->app->boot();
 	}
 
