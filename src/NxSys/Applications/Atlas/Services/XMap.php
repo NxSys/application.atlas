@@ -48,7 +48,9 @@ class XMap
 		$this->recursiveAdd($oNextMap, $oCurrentMap, $aXMap, $iMaxAbsoluteDepth);
 		
 		//Iterate over nodes to turn absolute size values to percentage values.
-		var_dump($aXMap);
+		$aXMap = $this->percenticateSizeValues($aXMap);
+		
+		return $aXMap;
 	}
 	
 	/**
@@ -103,7 +105,7 @@ class XMap
 			
 			//Form array for child.
 			$aCurrentChild = ["id" => join('/', $oChild->path),
-							  "color" => [0.5],
+							  "color" => [0.5], //@TODO Get color values based on update rate.
 							  "size" => $iSize];
 			
 			if ($iCurrentDepth + 1 <= $iMaxAbsoluteDepth and count($oChild->children) > 0)
@@ -169,7 +171,7 @@ class XMap
 				}
 				
 				$aCurrentChild = ["id" => join('/', $oChild->path),
-									"color" => [0.5],
+									"color" => [0.5], //@TODO Get color values based on update rate.
 									"size" => [0, $iSize]];
 				
 				if ($iCurrentDepth + 1 <= $iMaxAbsoluteDepth and count($oChild->children) > 0)
@@ -270,6 +272,37 @@ class XMap
 		}
 		return $aIndices;
 	}
+	
+	
+	private function percenticateSizeValues($aCurrentNode)
+	{
+		$iSizeTotal0 = 0;
+		$iSizeTotal1 = 0;
+		
+		foreach ($aCurrentNode["children"] as $iIndex=>$aChild)
+		{
+			$iSizeTotal0 += $aChild["size"][0];
+			$iSizeTotal1 += $aChild["size"][1];
+		}
+		
+		foreach ($aCurrentNode["children"] as $iIndex=>$aChild)
+		{
+			$aCurrentNode["children"][$iIndex]["size"][0] = $aChild["size"][0]/$iSizeTotal0;
+			$aCurrentNode["children"][$iIndex]["size"][1] = $aChild["size"][1]/$iSizeTotal1;
+		}
+		
+		foreach ($aCurrentNode["children"] as $iIndex=>$aChild)
+		{
+			if (array_key_exists("children", $aChild))
+			{
+				$aCurrentNode["children"][$iIndex] = $this->pctSizeValues($aChild);
+			}
+		}
+		
+		return $aCurrentNode;
+	}
+	
+	
 	
 	private function testMap1()
 	{
