@@ -136,7 +136,7 @@ namespace OnxAtlas
 		{
 			// let data=App.callServer('code', 'getNodeData', {greet: 'server'}, this.logNodeData);
 			App.callServer('code', 'getNodeData', {greet: 'server'}, this.logNodeData);
-			alert('My data\n');
+			// alert('My data\n');
 		}
 
 
