@@ -29,6 +29,7 @@ use Igorw\Silex\ConfigServiceProvider;
 //Service Namespaces
 use NxSys\Applications\Atlas\Services\Search as SearchService;
 use NxSys\Applications\Atlas\Services\VCS as VCSService;
+use NxSys\Applications\Atlas\Services\XMap as XMapService;
 use Elastica\Client as SearchClient;
 
 
@@ -99,6 +100,9 @@ class Application
 		};
 		$this->app['atlas.vcs'] = function ($app) {
 			return new VCSService($app);
+		};
+		$this->app['atlas.xmap'] = function ($app) {
+			return new XMapService($app);
 		};
 
 		$this->app->register(new \Silex\Provider\HttpFragmentServiceProvider());

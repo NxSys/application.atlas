@@ -39,16 +39,22 @@ class XMapNode
 		$aNextPath = [];
 		$oCurrentNode = $oRoot;
 		
+		
 		foreach ($aPath as $sNode)
 		{
 			$aNextPath[] = $sNode;
+			if ($oCurrentNode->path == $aNextPath)
+			{
+				continue;
+			}
 			if (array_key_exists(join("/", $aNextPath), $oCurrentNode->children))
 			{
+				
 				$oCurrentNode = $oCurrentNode->children[join("/", $aNextPath)];
 			}
 			else
 			{
-				throw new OutOfRangeException("Attempted to navigate to an XMap path that doesn't exist");
+				throw new \OutOfRangeException("Attempted to navigate to an XMap path that doesn't exist");
 			}
 		}
 		

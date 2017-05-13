@@ -28,7 +28,7 @@ var nextSize = 1;
 
 var switchNodeSet = function(nodeData)
 {
-	treeNodes = $('.ctrlTreeMap').treemap("option", "nodeData");
+	treeNodes = $('.ctrlExplorationMap').treemap("option", "nodeData");
 	
 	
 	
@@ -55,7 +55,7 @@ var myInnerNodeHeaderLabeller = function(ctx,rect,rgb,id) {
 	ctx.rect(rect[0],rect[1],rect[2],rect[3]);
 	ctx.clip();
 	ctx.fillStyle = '#555';
-	ctx.font = '0.625em Verdana, Geneva, sans-serif';
+	ctx.font = '0.75em Verdana, Geneva, sans-serif';
 	
 	labelArr = id.split("/");
 	label = labelArr[labelArr.length-1];
@@ -70,11 +70,11 @@ var myLeafNodeBodyLabeller = function(ctx,rect,rgb,id) {
 	} else {
 		ctx.fillStyle = '#888';
 	}
-	ctx.font = '0.625em Verdana, Geneva, sans-serif';
+	ctx.font = '1em Verdana, Geneva, sans-serif';
 	
 	labelArr = id.split("/");
 	label = labelArr[labelArr.length-1];
-	ctx.fillText(label,rect[0],rect[1]+10);
+	ctx.fillText(label,rect[0],rect[1]+15);
 };
 	
 	
