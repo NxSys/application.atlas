@@ -20,6 +20,12 @@ res/templates/Code.browse.twig.html -text
 res/templates/Mainframe.twig.html -text
 res/templates/components/Editor.view.twig.html -text
 /sonar-project.properties -text
+src-webui/OnxAtlas-App.ts -text svneol=unset#application/octet-stream
+src-webui/tsconfig.json -text
+src-webui/types/foundation-sites/foundation-sites.d.ts -text
+src-webui/types/jquery/jquery.d.ts -text
+src-webui/types/systemjs/systemjs-0.18.4.d.ts -text
+src-webui/types/systemjs/systemjs.d.ts -text
 src/Common.php -text
 src/NxSys/Applications/Atlas/Application.php -text
 src/NxSys/Applications/Atlas/ExceptionType.php -text
@@ -63,16 +69,6 @@ tests/functional/MyTest.php -text
 tests/functional/_bootstrap.php -text
 tests/unit.suite.yml -text
 tests/unit/_bootstrap.php -text
-ts-src/OnxAtlas-App.ts -text svneol=unset#application/octet-stream
-ts-src/tsconfig.json -text
-ts-src/types/codemirror/codemirror-runmode.d.ts -text
-ts-src/types/codemirror/codemirror-showhint.d.ts -text
-ts-src/types/codemirror/codemirror.d.ts -text
-ts-src/types/codemirror/searchcursor.d.ts -text
-ts-src/types/foundation-sites/foundation-sites.d.ts -text
-ts-src/types/jquery/jquery.d.ts -text
-ts-src/types/systemjs/systemjs-0.18.4.d.ts -text
-ts-src/types/systemjs/systemjs.d.ts -text
 webroot/css/app.css -text
 webroot/css/foundation.css -text
 webroot/css/foundation.min.css -text
